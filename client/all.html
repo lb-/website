@@ -1,0 +1,149 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- <link rel="shortcut icon" href="assets/ico/favicon.png"> -->
+  <title>LB</title>
+  <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  {{> main}}
+</body>
+
+<template name="main">
+  <main  data-spy="scroll" data-offset="0" data-target="#theMenu">
+    {{>nav}}
+    {{>header}}
+    {{>about}}
+    {{>contact}}
+  </main>
+</template>
+
+<template name="circles">
+  <p class="centered">
+    <i class="fa fa-circle"></i>
+    <i class="fa fa-circle"></i>
+    <i class="fa fa-circle"></i>
+  </p>
+</template>
+
+<template name="nav">
+  <nav class="menu" id="theMenu">
+    <div class="menu-wrap">
+      <h1>
+        <a href="index.html#home">LB</a>
+      </h1>
+      <i class="fa fa-times menu-close"></i>
+      <a href="#home" class="smoothScroll">Home</a>
+      <a href="#about" class="smoothScroll">About</a>
+      <!-- <a href="#portfolio" class="smoothScroll">Portfolio</a> -->
+      <a href="#contact" class="smoothScroll">Contact</a>
+      <a href="https://github.com/lb-"><i class="fa fa-github"></i></a>
+      <a href="https://twitter.com/_lb_"><i class="fa fa-twitter"></i></a>
+      <a href="http://instagram.com/_lb_"><i class="fa fa-instagram"></i></a>
+      <a href="mailto:mail@lb.ee"><i class="fa fa-envelope-o"></i></a>
+    </div>
+    <!-- Menu button -->
+    <div id="menuToggle">
+      <i class="fa fa-navicon"></i>
+    </div>
+  </nav>
+</template>
+
+
+<template name="header">
+  <section id="home" name="home"></section>
+  <div id="headerwrap">
+    <div class="container">
+      <!-- <div class="logo">
+        <img src=" /img/logo.png">
+      </div> -->
+      <br>
+      <div class="row">
+        <h1>LB</h1>
+        <br>
+        <h3>
+          I love to see people &amp; businesses empowered through destiny connections and systems thinking.
+        </h3>
+        <br>
+        <br>
+        <div class="col-lg-6 col-lg-offset-3">
+        </div>
+      </div>
+    </div><!-- /container -->
+  </div><!-- /headerwrap -->
+</template>
+
+<template name="about">
+  <section id="about" name="about"></section>
+  <div id="f">
+    <div class="container">
+      <div class="row">
+        <h3>ABOUT ME</h3>
+        {{>circles}}
+        <!-- INTRO INFORMATION -->
+        <div class="col-lg-6 col-lg-offset-3">
+          <p>A full time theme crafter based in Madrid, Spain. I love designing beautiful, clean and user-friendly interfaces for websites.</p>
+          <p>My passion is turning good ideas and products into eye-catching sites.</p>
+          <p>Sometimes I blog about design and web trends. Also I share links and my thoughts on <a href="http://twitter.com/BlackTie_co">Twitter</a>. Need a free handsome bootstrap theme? <a href="http://blacktie.co">Done!</a></p>
+          <p>I'm available for freelance jobs. Contact me now.</p>
+          <!-- <p><button type="button" class="btn btn-warning">I HAVE A FREELANCE JOB</button></p> -->
+        </div>
+      </div>
+    </div><!-- /container -->
+  </div><!-- /f -->
+</template>
+
+<template name="contact">
+  <section id="contact" name="contact"></section>
+  <div id="f">
+    <div class="container">
+      <div class="row">
+        <h3>CONTACT ME</h3>
+        {{>circles}}
+        <div class="col-lg-6 col-lg-offset-3">
+          <p>Brisbane<br/>QLD, Australia<br/>+61 414 446 068</p>
+          <p><a href="mailto:mail@lb.ee">mail@lb.ee</a></p>
+          <!-- <p><button type="button" class="btn btn-warning">YEAH! CONTACT ME NOW!</button></p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="projects">
+  <section id="portfolio" name="portfolio"></section>
+  <div id="f">
+    <div class="container">
+      <div class="row centered">
+        <h3>SOME PROJECTS</h3>
+        {{>circles}}
+        <div class="col-lg-6 col-lg-offset-3">
+          <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+              <div class="item active centered">
+                <img class="img-responsive" src=" /img/c1.png" alt="">
+              </div>
+              <div class="item centered">
+                <img class="img-responsive" src=" /img/c2.png" alt="">
+              </div>
+              <div class="item centered">
+                <img class="img-responsive" src=" /img/c3.png" alt="">
+              </div>
+            </div>
+            <br>
+            <br>
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+          </div>
+        </div><!-- col-lg-8 -->
+      </div><!-- row -->
+    </div><!-- container -->
+  </div>  <!-- f -->
+</template>
