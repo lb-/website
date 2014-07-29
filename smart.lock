@@ -10,6 +10,9 @@
       },
       "modernizr-meteor": {
         "version": "2.6.2"
+      },
+      "fast-render": {
+        "version": "0.2.8"
       }
     },
     "packages": {
@@ -27,6 +30,11 @@
         "git": "https://github.com/ckir/modernizr-meteor.git",
         "tag": "v2.6.2",
         "commit": "391ca2a3beff3cd2b0e1099cb2d744b5a2e8a73e"
+      },
+      "fast-render": {
+        "git": "https://github.com/arunoda/meteor-fast-render.git",
+        "tag": "v0.2.8",
+        "commit": "149984b1aff3a5642a270aff9bd9006872c8302e"
       }
     }
   }
