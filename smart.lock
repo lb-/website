@@ -16,6 +16,9 @@
       },
       "iron-router": {
         "version": "0.8.1"
+      },
+      "GAnalytics": {
+        "version": "0.2.0"
       }
     },
     "packages": {
@@ -43,6 +46,11 @@
         "git": "https://github.com/EventedMind/iron-router.git",
         "tag": "v0.8.1",
         "commit": "74e867557fd9cb81173e048e5f81cf4a0a1160a8"
+      },
+      "GAnalytics": {
+        "git": "https://github.com/datariot/meteor-ganalytics.git",
+        "tag": "v0.2.0",
+        "commit": "2d5e48d5cc4c2f88edd40c0b2341d378bd4a702b"
       },
       "iron-layout": {
         "git": "https://github.com/EventedMind/iron-layout.git",

@@ -4,6 +4,7 @@
     "font-awesome": {},
     "modernizr-meteor": {},
     "fast-render": {},
-    "iron-router": {}
+    "iron-router": {},
+    "GAnalytics": {}
   }
 }
