@@ -3,6 +3,7 @@
     "bootstrap-3": {},
     "font-awesome": {},
     "modernizr-meteor": {},
-    "fast-render": {}
+    "fast-render": {},
+    "iron-router": {}
   }
 }

@@ -11,3 +11,4 @@ font-awesome
 jquery
 modernizr-meteor
 fast-render
+iron-router
