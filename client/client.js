@@ -6,3 +6,18 @@ Template.main.rendered = function() {
     $('#theMenu').toggleClass('menu-open');
   });
 };
+
+//Google Analytics
+Router.onRun( function() {
+  //GAnalytics.pageview();
+  console.log('reached a page', this.route.name);
+});
+
+//Only page
+Router.map(function() {
+  this.route(
+    'main', {
+      path: '/'
+      }
+  );
+});
