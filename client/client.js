@@ -9,8 +9,8 @@ Template.main.rendered = function() {
 
 //Google Analytics
 Router.onRun( function() {
-  //GAnalytics.pageview();
-  console.log('reached a page', this.route.name);
+  GAnalytics.pageview(this.route.name);
+  //console.log('reached a page', this.route.name);
 });
 
 //Only page
