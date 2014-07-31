@@ -9,11 +9,10 @@
   <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  {{> main}}
 </body>
 
 <template name="main">
-  <main  data-spy="scroll" data-offset="0" data-target="#theMenu">
+  <main data-spy="scroll" data-offset="0" data-target="#theMenu">
     {{>nav}}
     {{>header}}
     {{>about}}
@@ -33,18 +32,17 @@
   <nav class="menu" id="theMenu">
     <div class="menu-wrap">
       <h1>
-        <a href="index.html#home">LB</a>
+        <a href="#home" data-scroll>LB</a>
       </h1>
       <i class="fa fa-times menu-close"></i>
-      <a href="#home" class="smoothScroll">Home</a>
-      <a href="#about" class="smoothScroll">About</a>
-      <!-- <a href="#portfolio" class="smoothScroll">Portfolio</a> -->
-      <a href="#contact" class="smoothScroll">Contact</a>
-      <a href="https://github.com/lb-"><i class="fa fa-github"></i></a>
-      <a href="https://twitter.com/_lb_"><i class="fa fa-twitter"></i></a>
-      <a href="http://instagram.com/_lb_"><i class="fa fa-instagram"></i></a>
-      <a href="http://www.beanhunter.com/user/lbeeee"><i class="fa fa-coffee"></i></a>
-      <a href="mailto:mail@lb.ee"><i class="fa fa-envelope-o"></i></a>
+      <a href="#home" class="trackEvent" data-scroll>Home</a>
+      <a href="#about" class="trackEvent" data-scroll>About</a>
+      <a href="#contact" class="trackEvent" data-scroll>Contact</a>
+      <a href="https://github.com/lb-" class="trackEvent"><i class="fa fa-github"></i></a>
+      <a href="https://twitter.com/_lb_" class="trackEvent"><i class="fa fa-twitter"></i></a>
+      <a href="http://instagram.com/_lb_" class="trackEvent"><i class="fa fa-instagram"></i></a>
+      <a href="http://www.beanhunter.com/user/lbeeee" class="trackEvent"><i class="fa fa-coffee"></i></a>
+      <a href="mailto:mail@lb.ee" class="trackEvent"><i class="fa fa-envelope-o"></i></a>
     </div>
     <!-- Menu button -->
     <div id="menuToggle">
@@ -58,9 +56,6 @@
   <section id="home" name="home"></section>
   <div id="headerwrap">
     <div class="container">
-      <!-- <div class="logo">
-        <img src=" /img/logo.png">
-      </div> -->
       <br>
       <div class="row">
         <h1>LB</h1>
@@ -73,8 +68,8 @@
         <div class="col-lg-6 col-lg-offset-3">
         </div>
       </div>
-    </div><!-- /container -->
-  </div><!-- /headerwrap -->
+    </div>
+  </div>
 </template>
 
 <template name="about">
@@ -88,13 +83,12 @@
         <div class="col-lg-6 col-lg-offset-3">
           <p>A full time Business Manger based in Brisbane, Australia. I love building systems and implementing processes that empower people to connect better and save time.</p>
           <p>Passionate about open web technologies, cloud services and fresh approaches to project and systems management.</p>
-          <p>You can follow me on <a href="https://twitter.com/_lb_">Twitter</a> or <a href="http://www.beanhunter.com/user/lbeeee">Beanhunter</a>.</p>
+          <p>You can follow me on <a href="https://twitter.com/_lb_" class="trackEvent">Twitter</a> or <a href="http://www.beanhunter.com/user/lbeeee" class="trackEvent">Beanhunter</a>.</p>
           <p>Always keen for some great coffee and a chat.</p>
-          <!-- <p><button type="button" class="btn btn-warning">I HAVE A FREELANCE JOB</button></p> -->
         </div>
       </div>
-    </div><!-- /container -->
-  </div><!-- /f -->
+    </div>
+  </div>
 </template>
 
 <template name="contact">
@@ -106,8 +100,7 @@
         {{>circles}}
         <div class="col-lg-6 col-lg-offset-3">
           <p>Brisbane<br/>QLD, Australia<br/>+61 414 446 068</p>
-          <p><a href="mailto:mail@lb.ee">mail@lb.ee</a></p>
-          <!-- <p><button type="button" class="btn btn-warning">YEAH! CONTACT ME NOW!</button></p> -->
+          <p><a href="mailto:mail@lb.ee" class="trackEvent">mail@lb.ee</a></p>
         </div>
       </div>
     </div>

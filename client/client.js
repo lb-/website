@@ -1,19 +1,22 @@
 Template.main.rendered = function() {
-  // Menu settings
-  $('#menuToggle, .menu-close').on('click', function(){
+  smoothScroll.init();
+}
+
+Template.main.events({
+  'click #menuToggle, click .menu-close' : function(event, template) {
     $('#menuToggle').toggleClass('active');
     $('body').toggleClass('body-push-toleft');
     $('#theMenu').toggleClass('menu-open');
-  });
-};
-
-//Google Analytics
-Router.onRun( function() {
-  GAnalytics.pageview(this.route.name);
-  //console.log('reached a page', this.route.name);
+  },
+  'click .trackEvent' : function(event, template) {
+    GAnalytics.event("click", event.currentTarget.href);
+  }
 });
 
-//Only page
+Router.onRun( function() {
+  GAnalytics.pageview(this.route.name);
+});
+
 Router.map(function() {
   this.route(
     'main', {
