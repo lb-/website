@@ -1,18 +1,10 @@
 ---
-title: "AlphabetJS: The latest and greatest Javascript framework"
+title: "LB.ee"
 ---
 
-## Inops magnis Acrisius remisit Circes
+## Welcome
 
-Lorem markdownum *formasque* terram, fatum adnuit memores, stipulis
-virgine,
-ullo vires, potiere proles. Modo [nec Aesacon](http://gifctrl.com/) et
-vultum
-praeter fata gemitus panda. Factaque sibi repressit saltem, flammaeque
-ille per
-et opus flecti tellus inter: curru sidus. O iunxit ita erat, frondes,
-hac proles
-inritaturque?
+**LB.ee** Aspiring digital nomad, futurist, systems thinker and Christian. Absolutely passionate to understand how things work, create and improve systems. My name is LB (pronounced 'Albi') and this site has a bit of info to help you get to know me.
 
 ## Sed videt vestem vagatur
 
