@@ -3,6 +3,7 @@
   "description": "lb.ee Personal Website",
   "version": "1.0.0",
   "author": "LB <mail@lb.ee>",
+  "repository": "https://github.com/lb-/personal-website",
   "dependencies": {
     "bulma": "^0.3.1",
     "chroma-js": "^0.7.2",
