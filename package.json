@@ -1,8 +1,8 @@
 {
-  "name": "docs-site",
-  "description": "Gatsby example site",
+  "name": "lb-personal-website",
+  "description": "lb.ee Personal Website",
   "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "LB <mail@lb.ee>",
   "dependencies": {
     "chroma-js": "^0.7.2",
     "color-pairs-picker": "^1.3.5",
