@@ -8,9 +8,6 @@ import Nav from '../components/Nav';
 // Import styles.
 import '../css/main.css';
 
-// import { rhythm } from '../utils/typography'
-// import Flex from 'react-uikit-flex';
-// import Panel from 'react-uikit-panel';
 import '../node_modules/elemental/less/elemental.less'
 import { Row, Col } from 'elemental'
 
@@ -24,10 +21,10 @@ module.exports = React.createClass({
     return (
       <main>
         <Row>
-          <Col xs="100%" sm="25%" lg="33.333%">
+          <Col xs="100%" sm="1/4" lg="1/3">
             <Nav />
           </Col>
-          <Col xs="100%" sm="77%" lg="66.667%">
+          <Col xs="100%" sm="3/4" lg="2/3">
             {this.props.children}
           </Col>
         </Row>
