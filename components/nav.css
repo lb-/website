@@ -1,0 +1,20 @@
+nav {
+  font-family: 'Josefin Slab', serif;
+  text-transform: uppercase;
+  line-height: 3rem;
+  font-size: 2rem;
+  letter-spacing: 0.2rem;
+  padding-bottom: 1rem;
+}
+nav a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+}
+nav a:hover::after {
+  content: ' //';
+}
+nav a:active, a:hover {
+  color: #fff;
+  text-decoration: none;
+}
