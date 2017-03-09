@@ -2,24 +2,16 @@
 title: "LB"
 ---
 
-## Welcome
-
-Aspiring digital nomad, futurist, systems thinker and Christian.
-
-Absolutely passionate to understand how things work, create and improve systems.
-My name is LB (pronounced 'Albi') and this site has a bit of info to help you get to know me.
+Aspiring digital nomad, futurist, systems thinker and Christian. Absolutely passionate to understand how things work, create and improve systems. My name is LB (pronounced 'Albi') and this site has a bit of info to help you get to know me.
 
 ## Process
 
 What I love to do (even in my sleep) is help individuals and businesses implement systems and processes.
 
-A process works best when it is not the goal unto itself.
-
-Culture trumps process every time, not the other way around.
-
-Software can solve a problem but often a spreadsheet can achieve a process goal without adding new problems first.
-
-Technology serves us best when it enhances an existing system.
+* A process works best when it is not the goal unto itself.
+* Culture trumps process every time, not the other way around.
+* Software can solve a problem but often a spreadsheet can achieve a process goal without adding new problems first.
+* Technology serves us best when it enhances an existing system.
 
 I would love to help you add structure where you need it in your business.
 
@@ -65,12 +57,11 @@ Using the Wagtail CMS framework (built using Django), developed an internal know
 
 ### Youth Alive Queensland
 As a not for profit organisation we built our own in-house ticketing system, saving thousands in sales commissions and leveraging a mobile check-in system that volunteers could use.
-> "LB has added significant value to our organisation throughout his time with us. His impact
-with us is profound" _— Cameron Bennett (Managing Director)_
+>LB has added significant value to our organisation throughout his time with us. His impact with us is profound _— Cameron Bennett (Managing Director)_
 
 ### WRS
 Built a custom Google App Engine system that provided a simple way for WRS to send files to their customer relationship management system XPLAN eliminated an entirely manual process from an existing system.
-> "We would like to thank you for pioneering this system for us. It has become an invaluable tool for the business over the years." _— Ross Caruso (Managing Director)_
+>We would like to thank you for pioneering this system for us. It has become an invaluable tool for the business over the years. _— Ross Caruso (Managing Director)_
 
 ### ChaplainWatch
 A multi-user and real-time incident management system for a community organisation offering a professional response to the crises, risks or needs of people.
@@ -101,7 +92,7 @@ Preferred tools &amp; technologies where I have the most experience.
 * Python: Django, Wagtail, Web2py, Flask
 * Code: Atom editor, Git, ESlint
 * CSS Framework: Bootstrap, Semantic UI
-* Platforms: Google Cloud Platform, Modulus.io
+* Platforms: Google Cloud Platform, Modulus
 * Adobe: InDesign, Illustrator and Photoshop
 * Other: Saasu, Google Chrome, Mailchimp, Wordpress, PCO
 
