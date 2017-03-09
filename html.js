@@ -20,7 +20,7 @@ module.exports = React.createClass({
     }
 
     let js;
-    if (isProduction) {
+    if (!isProduction) {
       js = <script src={prefixLink(`/bundle.js?t=${BUILD_TIME}`)} />;
     }
 
