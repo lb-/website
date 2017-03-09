@@ -1,8 +1,9 @@
-import React from 'react'
-import DocumentTitle from 'react-document-title'
-import { prefixLink } from 'gatsby-helpers'
+import React from 'react';
+import DocumentTitle from 'react-document-title';
+import { prefixLink } from 'gatsby-helpers';
+import { config } from 'config';
 
-const BUILD_TIME = new Date().getTime()
+const BUILD_TIME = new Date().getTime();
 
 module.exports = React.createClass({
   displayName: 'HTML',
@@ -10,11 +11,17 @@ module.exports = React.createClass({
     body: React.PropTypes.string,
   },
   render () {
-    const title = DocumentTitle.rewind()
+    const title = DocumentTitle.rewind();
+    const isProduction = process.env.NODE_ENV === 'production';
 
-    let css
-    if (process.env.NODE_ENV === 'production') {
-      css = <style dangerouslySetInnerHTML={{ __html: require('!raw!./public/styles.css') }} />
+    let css;
+    if (isProduction) {
+      css = <style dangerouslySetInnerHTML={{ __html: require('!raw!./public/styles.css') }} />;
+    }
+
+    let js;
+    if (isProduction) {
+      js = <script src={prefixLink(`/bundle.js?t=${BUILD_TIME}`)} />;
     }
 
     return (
@@ -41,7 +48,7 @@ module.exports = React.createClass({
         </head>
         <body>
           <div id="react-mount" dangerouslySetInnerHTML={{ __html: this.props.body }} />
-          <script src={prefixLink(`/bundle.js?t=${BUILD_TIME}`)} />
+          {js}
         </body>
       </html>
     )
