@@ -1,5 +1,7 @@
-# gatsby-starter-documentation
-Starter for building documentation site with GatsbyJS
+# lb.ee
+Content for building the static website hosted at http://lb.ee
 
-Install this starter (assuming Gatsby is installed) by running from your CLI:
-`gatsby new gatsby-documentation-site https://github.com/gatsbyjs/gatsby-starter-documentation`
+## Commands
+$ `gatsby develop`
+$ `gatsby build` The site is built to the /public directory.
+$ `gatsby serve-build` Serves the contents of the /public directory.
