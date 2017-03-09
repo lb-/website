@@ -27,6 +27,7 @@ module.exports = React.createClass({
             content="width=device-width, initial-scale=1.0"
           />
           <meta name="author" content="LB (Ben) Johnston - mail@lb.ee" />
+          <meta name="description" content="Website of LB (Ben) Johnston. Absolutely passionate to understand how things work, create and improve systems." />
           <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
           <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32" />
           <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16" />
