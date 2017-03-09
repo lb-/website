@@ -5,7 +5,6 @@
   "author": "LB <mail@lb.ee>",
   "repository": "https://github.com/lb-/personal-website",
   "dependencies": {
-    "bulma": "^0.3.1",
     "chroma-js": "^0.7.2",
     "color-pairs-picker": "^1.3.5",
     "elemental": "^0.6.1",
@@ -19,7 +18,7 @@
     "gh-pages": "^0.12.0"
   },
   "keywords": [
-    "gatsby"
+    "website", "personal website"
   ],
   "license": "MIT",
   "main": "n/a",
