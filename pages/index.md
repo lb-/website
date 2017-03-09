@@ -1,5 +1,5 @@
 ---
-title: "LB.ee"
+title: "LB"
 ---
 
 ## Welcome
