@@ -6,9 +6,7 @@ import Nav from '../components/Nav';
 // import { prefixLink } from 'gatsby-helpers'
 
 // Import styles.
-import '../css/main.css';
-
-import '../node_modules/elemental/less/elemental.less'
+import '../css/main.less';
 import { Row, Col } from 'elemental'
 
 module.exports = React.createClass({
@@ -21,10 +19,10 @@ module.exports = React.createClass({
     return (
       <main>
         <Row>
-          <Col xs="100%" sm="1/4" lg="1/3">
+          <Col sm="2/4" lg="1/3">
             <Nav />
           </Col>
-          <Col xs="100%" sm="3/4" lg="2/3">
+          <Col sm="2/4" lg="2/3">
             {this.props.children}
           </Col>
         </Row>
