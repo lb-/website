@@ -1,0 +1,17 @@
+@import 'https://fonts.googleapis.com/css?family=Josefin+Slab';
+@import 'https://fonts.googleapis.com/css?family=Oxygen';
+body {
+  background-color: #f36f54;
+  color: #1a1a1a;
+  font-size: 1.25rem;
+  font-family: 'Oxygen', sans-serif;
+}
+
+a {
+  color: #4a4a4a;
+  text-decoration: underline;
+}
+a:focus {
+  color: #4a4a4a;
+  text-decoration: underline;
+}
