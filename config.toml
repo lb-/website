@@ -1,3 +1,4 @@
-siteTitle="LB - lb.ee"
+siteTitle = "LB - lb.ee"
 baseColor = "#f36f54"
 linkPrefix = "/"
+noProductionJavascript = true
