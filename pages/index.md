@@ -77,3 +77,33 @@ A multi-user and real-time incident management system for a community organisati
 
 ## Handybin
 Enable the existing staff (non-programmers) to make the most of a custom database solution using Zoho Creator, building core functionality and handing it off to their team for future.
+
+# Philosophy
+A few thoughts on how I like to approach problem solving and systems, especially in a technology rich world.
+
+## Open Source
+Open Source Software should be the basis of solutions wherever possible and it is better to contribute to something bigger then create silos. I currently maintain a [time formatting package for Meteor](https://atmospherejs.com/lbee/moment-helpers) which has over 4000 downloads.
+
+## Start From a System That Works
+It can be tempting to build the whole solution or the perfect system from scratch, this always seems to fail in spectacular ways. I try to remind myself constantly of this and when implementing systems - start with what exists and work from there.
+
+## Building on Existing Platforms
+Whether it is Google Apps for email, Trello for project management, or Modulus for Javascript hosted code, I endeavour to build solutions based on proven existing services and platforms.
+
+## Transparent
+Every project is managed by a dedicated Trello board, shared with clients, so you know what I am working on at all times. With a weekly flow of updates and invoices which means a faster communication loop between myself and clients.
+
+## Tools
+Preferred tools &amp; technologies where I have the most experience.
+
+* Collaboration: Google Apps, Trello, Toggl, Github
+* Javascript: Node.js, Meteor, React, Knockout.js
+* Python: Django, Wagtail, Web2py, Flask
+* Code: Atom editor, Git, ESlint
+* CSS Framework: Bootstrap, Semantic UI
+* Platforms: Google Cloud Platform, Modulus.io
+* Adobe: InDesign, Illustrator and Photoshop
+* Other: Saasu, Google Chrome, Mailchimp, Wordpress, PCO
+
+# Posts
+I have a few thoughts and ramblings on [Posts by LB](https://posts-by.lb.ee) - my Medium Publication.
