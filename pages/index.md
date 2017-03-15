@@ -4,6 +4,7 @@ title: "LB"
 
 Aspiring digital nomad, futurist, systems thinker and Christian. Absolutely passionate to understand how things work, create and improve systems. My name is LB (pronounced 'Albi') and this site has a bit of info to help you get to know me.
 
+<a name="process"></a>
 ## Process
 
 What I love to do (even in my sleep) is help individuals and businesses implement systems and processes.
@@ -15,6 +16,7 @@ What I love to do (even in my sleep) is help individuals and businesses implemen
 
 I would love to help you add structure where you need it in your business.
 
+<a name="past"></a>
 ## Past
 
 A selection of past employment, more on my [Linkedin profile](https://www.linkedin.com/in/lbbenjohnston).
@@ -47,6 +49,7 @@ Google Apps, Custom Software, Python, Javascript, Design.
 __2007—2010__
 Internal Custom Database, Google Apps Migration.
 
+<a name="projects"></a>
 ## Projects
 
 A quick summary of some of the elegant solutions I have had the privilege of instigating and overseeing either as employee or contractor.
@@ -69,6 +72,7 @@ A multi-user and real-time incident management system for a community organisati
 ### Handybin
 Enable the existing staff (non-programmers) to make the most of a custom database solution using Zoho Creator, building core functionality and handing it off to their team for future.
 
+<a name="philosophy"></a>
 ## Philosophy
 A few thoughts on how I like to approach problem solving and systems, especially in a technology rich world.
 
@@ -96,5 +100,6 @@ Preferred tools &amp; technologies where I have the most experience.
 * Adobe: InDesign, Illustrator and Photoshop
 * Other: Saasu, Google Chrome, Mailchimp, Wordpress, PCO
 
+<a name="posts"></a>
 ## Posts
 I have a few thoughts and ramblings on [Posts by LB](https://posts-by.lb.ee) - my Medium Publication.
