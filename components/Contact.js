@@ -4,17 +4,20 @@ var FontAwesome = require('react-fontawesome');
 class ContactItem extends Component {
   render () {
     return (
-      <li>
-        <FontAwesome
-          name={this.props.icon}
-          fixedWidth={true}
-          className='fa-li'
-          />
-        <a href="{this.props.link}" className="btn btn-info btn-lg" role="button">
-          {this.props.context ? <strong>{this.props.context}</strong> : ''}
-          {this.props.text}
+      <p class="control">
+        <a href={this.props.link} className="button is-large is-outlined">
+          <span className="icon is-medium">
+            <FontAwesome
+              name={this.props.icon}
+              fixedWidth={true}
+              tag='i'/>
+          </span>
+          <span>
+            {this.props.context ? <strong>{this.props.context}</strong> : ''}
+            {this.props.text}
+          </span>
         </a>
-      </li>
+      </p>
     )
   }
 }
@@ -58,9 +61,9 @@ class Contact extends Component {
         <h2>Contact</h2>
         <p>If you have a project in mind, looking for some advice on cloud services or keen to get in touch.</p>
         <h3>General</h3>
-        <ul className='fa-ul'>{contactItems}</ul>
+        {contactItems}
         <h3>Socials</h3>
-        <ul className='fa-ul'>{socialItems}</ul>
+        <p className="control">{socialItems}</p>
       </section>
     )
   }

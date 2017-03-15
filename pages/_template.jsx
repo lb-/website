@@ -17,7 +17,7 @@ module.exports = React.createClass({
           <div className="column is-half-desktop is-one-third-tablet">
             <Nav />
           </div>
-          <div className="column is-half-desktop is-two-thirds-tablet">
+          <div className="content is-large column is-half-desktop is-two-thirds-tablet">
             {this.props.children}
             <Contact />
           </div>
