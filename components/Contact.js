@@ -28,7 +28,13 @@ class Contact extends Component {
       {text: 'skype@lb.ee', icon: 'skype', link: 'skype:live:skype_7126?userinfo'},
     ]
     const contactItems = contactData.map((data, index) =>
-      <ContactItem text={data.text} context={data.context} icon={data.icon} link={data.link} />
+      <ContactItem
+        text={data.text}
+        context={data.context}
+        icon={data.icon}
+        link={data.link}
+        key={index}
+        />
     );
     const socialData = [
       {text: '/@_lb_', context: 'Medium', icon: 'medium', link: 'https://medium.com/@_lb_'},
@@ -38,12 +44,20 @@ class Contact extends Component {
       {text: '/lbbenjohnston', context: 'Linkedin', icon: 'linkedin', link: 'https://www.linkedin.com/in/lbbenjohnston'},
     ]
     const socialItems = socialData.map((data, index) =>
-      <ContactItem text={data.text} context={data.context} icon={data.icon} link={data.link} />
+      <ContactItem
+        text={data.text}
+        context={data.context}
+        icon={data.icon}
+        link={data.link}
+        key={index}
+        />
     );
 
     return (
       <section id="contact">
-        <h3>Contact</h3>
+        <h2>Contact</h2>
+        <p>If you have a project in mind, looking for some advice on cloud services or keen to get in touch.</p>
+        <h3>General</h3>
         <ul className='fa-ul'>{contactItems}</ul>
         <h3>Socials</h3>
         <ul className='fa-ul'>{socialItems}</ul>
