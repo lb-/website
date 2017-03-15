@@ -1,6 +1,7 @@
 import React from 'react'
 import Footer from '../components/Footer';
 import Nav from '../components/Nav';
+import Contact from '../components/Contact';
 // import { Container } from 'react-responsive-grid'
 // import { Link } from 'react-router'
 // import { prefixLink } from 'gatsby-helpers'
@@ -24,6 +25,7 @@ module.exports = React.createClass({
           </Col>
           <Col sm="2/4" lg="2/3">
             {this.props.children}
+            <Contact />
           </Col>
         </Row>
         <Footer />
