@@ -44,7 +44,8 @@ module.exports = React.createClass({
           <meta name="msapplication-config" content="/images/browserconfig.xml" />
           <meta name="theme-color" content="#f36f54" />
           <title>{title}</title>
-          <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.2/css/bulma.min.css" rel="stylesheet" />
           {css}
         </head>
         <body>

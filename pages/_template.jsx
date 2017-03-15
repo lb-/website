@@ -2,13 +2,7 @@ import React from 'react'
 import Footer from '../components/Footer';
 import Nav from '../components/Nav';
 import Contact from '../components/Contact';
-// import { Container } from 'react-responsive-grid'
-// import { Link } from 'react-router'
-// import { prefixLink } from 'gatsby-helpers'
-
-// Import styles.
 import '../css/main.less';
-import { Row, Col } from 'elemental'
 
 module.exports = React.createClass({
   propTypes () {
@@ -19,15 +13,15 @@ module.exports = React.createClass({
   render () {
     return (
       <main>
-        <Row>
-          <Col sm="2/4" lg="1/3">
+        <div className="columns">
+          <div className="column is-half-desktop is-one-third-tablet">
             <Nav />
-          </Col>
-          <Col sm="2/4" lg="2/3">
+          </div>
+          <div className="column is-half-desktop is-two-thirds-tablet">
             {this.props.children}
             <Contact />
-          </Col>
-        </Row>
+          </div>
+        </div>
         <Footer />
       </main>
     )
