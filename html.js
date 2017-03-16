@@ -52,11 +52,11 @@ module.exports = React.createClass({
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.2/css/bulma.min.css" />
           {css}
-          <script dangerouslySetInnerHTML={{__html: heapAnalytics}} />
         </head>
         <body>
           <div id="react-mount" dangerouslySetInnerHTML={{ __html: this.props.body }} />
           {js}
+          <script dangerouslySetInnerHTML={{__html: heapAnalytics}} />
         </body>
       </html>
     )
