@@ -10,12 +10,10 @@
 @bittersweet-orange-light: #F36F54;
 @bittersweet-orange-dark: #E9583F;
 
-// Body
 html {
   background-color: @bittersweet-orange-light;
   color: @dark-grey;
   font-family: 'Oxygen', sans-serif;
-  // font-size: 2vmax;
 }
 body {
   background-color: @bittersweet-orange-light;
@@ -26,7 +24,6 @@ main {
   padding: 1rem;
 }
 
-// Links
 .content a {
   color: @ship-grey;
   text-decoration: underline;
@@ -40,13 +37,14 @@ main {
   }
 }
 
-// Headings
-.content h1 {
+.markdown {
+  margin-bottom: 4rem;
+}
+.markdown h1 {
   color: white;
   font-family: 'Josefin Slab', serif;
-  // font-size: 3rem;
 }
-.content h2 {
+.markdown h2 {
   color: @white;
   // font-size: 1.5rem;
   letter-spacing: 0.1rem;
@@ -61,15 +59,14 @@ main {
     padding: 4px 2px 10px;
   }
 }
-.content h3 {
+.markdown h3 {
   margin-top: 2rem;
   color: @ship-grey;
 }
-.content p {
+.markdown p {
   padding: .25rem;
 }
-.content blockquote {
-  // background-color: @bittersweet-orange-dark;
+.markdown blockquote {
   border-radius: 0.125em;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.075), 0 0 0 1px rgba(0, 0, 0, 0.1);
   margin-bottom: 1em;
