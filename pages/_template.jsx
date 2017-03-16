@@ -1,6 +1,7 @@
 import React from 'react'
 import Footer from '../components/Footer';
 import Nav from '../components/Nav';
+import Logo from '../components/Logo';
 import Contact from '../components/Contact';
 import '../css/main.less';
 
@@ -16,6 +17,7 @@ module.exports = React.createClass({
         <div className="columns">
           <div className="column is-half-desktop is-one-third-tablet">
             <Nav />
+            <Logo />
           </div>
           <div className="content is-large column is-half-desktop is-two-thirds-tablet">
             {this.props.children}
