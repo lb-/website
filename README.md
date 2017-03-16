@@ -10,3 +10,8 @@ $ `gatsby serve-build` Serves the contents of the /public directory.
 ## Reference Gatsby Sites
 * https://github.com/SachaG/sg2017 _good design_
 * https://github.com/bitmoremedia/mygi/ _no production javascript + components_
+
+
+## Possible Improvements
+* Use Environment Variables to store heap analytics code
+  * https://github.com/gatsbyjs/gatsby/issues/660
