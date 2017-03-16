@@ -3,7 +3,6 @@ import './nav.less'
 
 class Nav extends Component {
   render () {
-    // const { mobile, children } = this.props
     return (
       <nav>
         <a href="#process">Process</a>
