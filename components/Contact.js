@@ -4,20 +4,18 @@ var FontAwesome = require('react-fontawesome');
 class ContactItem extends Component {
   render () {
     return (
-      <p class="control">
-        <a href={this.props.link} className="button is-large is-outlined">
-          <span className="icon is-medium">
-            <FontAwesome
-              name={this.props.icon}
-              fixedWidth={true}
-              tag='i'/>
-          </span>
-          <span>
-            {this.props.context ? <strong>{this.props.context}</strong> : ''}
-            {this.props.text}
-          </span>
-        </a>
-      </p>
+      <a href={this.props.link} className="button is-medium">
+        <span className="icon">
+          <FontAwesome
+            name={this.props.icon}
+            fixedWidth={true}
+            tag='i'/>
+        </span>
+        <span>
+          {this.props.context ? <strong>{this.props.context}</strong> : ''}
+          {this.props.text}
+        </span>
+      </a>
     )
   }
 }
@@ -57,13 +55,13 @@ class Contact extends Component {
     );
 
     return (
-      <section id="contact">
+      <section id="contact" className="has-text-centered section">
         <h2>Contact</h2>
         <p>If you have a project in mind, looking for some advice on cloud services or keen to get in touch.</p>
         <h3>General</h3>
-        {contactItems}
+        <div className="hero-buttons">{contactItems}</div>
         <h3>Socials</h3>
-        <p className="control">{socialItems}</p>
+        <div className="hero-buttons">{socialItems}</div>
       </section>
     )
   }
