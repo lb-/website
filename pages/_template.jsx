@@ -19,8 +19,10 @@ module.exports = React.createClass({
           </div>
           <div className="content is-large column is-half-desktop is-two-thirds-tablet">
             {this.props.children}
-            <Contact />
           </div>
+        </div>
+        <div className="columns">
+          <div className="content is-large column"><Contact /></div>
         </div>
         <Footer />
       </main>
