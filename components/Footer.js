@@ -3,9 +3,7 @@ import './footer.less';
 
 class Footer extends Component {
   render () {
-    // const { mobile, children } = this.props
     return (
-
       <footer className="footer">
         <div className="container">
           <div className="content has-text-centered">
