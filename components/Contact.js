@@ -39,8 +39,8 @@ class Contact extends Component {
     );
     const socialData = [
       {text: '/@_lb_', context: 'Medium', icon: 'medium', link: 'https://medium.com/@_lb_'},
-      {text: '/lb-', context: 'Goodreads', icon: 'book', link: 'https://www.goodreads.com/user/show/52107290-lb-ben-johnston'},
-      {text: '/lb', context: 'Github', icon: 'github', link: 'https://github.com/lb'},
+      {text: '/lb_ee', context: 'Goodreads', icon: 'book', link: 'https://www.goodreads.com/lb_ee'},
+      {text: '/lb-', context: 'Github', icon: 'github', link: 'https://github.com/lb-/'},
       {text: '/lbeeee', context: 'Beanhunter', icon: 'coffee', link: 'https://www.beanhunter.com/users/lbeeee'},
       {text: '/lbbenjohnston', context: 'Linkedin', icon: 'linkedin', link: 'https://www.linkedin.com/in/lbbenjohnston'},
     ]
