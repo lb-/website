@@ -5,6 +5,7 @@
   "author": "LB <mail@lb.ee>",
   "repository": "https://github.com/lb-/personal-website",
   "dependencies": {
+    "caniuse-db": "^1.0.30000709",
     "chroma-js": "^0.7.2",
     "gatsby": "^0.12.38",
     "lodash": "^4.17.2",
@@ -24,5 +25,8 @@
     "develop": "gatsby develop",
     "build": "gatsby build",
     "deploy": "gatsby build --prefix-links && gh-pages -d public"
+  },
+  "devDependencies": {
+    "caniuse-db": "^1.0.30000709"
   }
 }
