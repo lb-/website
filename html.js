@@ -43,6 +43,7 @@ module.exports = React.createClass({
           <link rel="manifest" href="/images/manifest.json" />
           <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#f36f54" />
           <link rel="shortcut icon" href="/favicon.ico" />
+          <meta name="google-site-verification" content="WQf-OgwU2dYQg0ZiEKg0iDC04Fc5JAhJbz8p8PyUPtY" />
           <meta name="msapplication-config" content="/images/browserconfig.xml" />
           <meta name="theme-color" content="#f36f54" />
           <title>{title}</title>
