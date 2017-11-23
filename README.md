@@ -6,16 +6,13 @@ $ `gatsby develop`
 $ `gatsby build` The site is built to the /public directory.
 $ `gatsby serve-build` Serves the contents of the /public directory.
 
+## Static Site Hosting
+* https://www.netlify.com/ - so awesome
+* Settings: 
+  * Build Command: `gatsby build`
+  * Public Director: `/public`
+  * Production Branch: `master`
 
 ## Reference Gatsby Sites
 * https://github.com/SachaG/sg2017 _good design_
 * https://github.com/bitmoremedia/mygi/ _no production javascript + components_
-
-
-## Possible Improvements
-* Use Environment Variables to store heap analytics code
-  * https://github.com/gatsbyjs/gatsby/issues/660
-
-
-## Flight Data
-* https://www.flightpedia.org/flight-status/
