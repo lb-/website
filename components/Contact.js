@@ -41,7 +41,9 @@ class Contact extends Component {
       {text: '/@_lb_', context: 'Medium', icon: 'medium', link: 'https://medium.com/@_lb_'},
       {text: '/lb_ee', context: 'Goodreads', icon: 'book', link: 'https://www.goodreads.com/lb_ee'},
       {text: '/lb-', context: 'Github', icon: 'github', link: 'https://github.com/lb-/'},
+      {text: '/lb-ben-johnston', context: 'Stack Overflow', icon 'stack-overflow', link: 'https://stackoverflow.com/users/8070948/lb-ben-johnston'},
       {text: '/lbeeee', context: 'Beanhunter', icon: 'coffee', link: 'https://www.beanhunter.com/users/lbeeee'},
+      {text: '/@_lb_', context: 'Instagram', icon: 'instagram', link: 'https://www.instagram.com/_lb_/'},
       {text: '/lbbenjohnston', context: 'Linkedin', icon: 'linkedin', link: 'https://www.linkedin.com/in/lbbenjohnston'},
     ]
     const socialItems = socialData.map((data, index) =>
