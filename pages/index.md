@@ -2,7 +2,7 @@
 title: "Welcome"
 ---
 
-Aspiring digital nomad, futurist, systems thinker and Christian. Absolutely passionate to understand how things work, create and improve systems. My name is LB (pronounced 'Albi') and this site has a bit of info to help you get to know me.
+Absolutely passionate to understand how things work, create and improve systems. My name is LB (pronounced 'Albi') and this site has a bit of info to help you get to know me.
 
 <a name="process"></a>
 ## Process
@@ -26,7 +26,7 @@ __2017__
 Communications, Marketing, Facebook, SEO and Digital Communication Strategy.
 
 ### Technology Consultant at ifeelgood 24/7
-__2016—Current__
+__2016—2017__
 IT Strategy, Systems, Processes and Knowledge Management.
 
 ### Board Member at Youth Alive Queensland
@@ -77,7 +77,7 @@ Enable the existing staff (non-programmers) to make the most of a custom databas
 A few thoughts on how I like to approach problem solving and systems, especially in a technology rich world.
 
 ### Open Source
-Open Source Software should be the basis of solutions wherever possible and it is better to contribute to something bigger then create silos. I currently maintain a [time formatting package for Meteor](https://atmospherejs.com/lbee/moment-helpers) which has over 4000 downloads.
+Open Source Software should be the basis of solutions wherever possible and it is better to contribute to something bigger then create silos. I am currently on the core development team for [Wagtail](https://wagtail.io/) - an Open Source CMS built with Python on the Django framework. I also put together a [time formatting package for Meteor](https://atmospherejs.com/lbee/moment-helpers) which has had over 4000 downloads.
 
 ### Start From a System That Works
 It can be tempting to build the whole solution or the perfect system from scratch, this always seems to fail in spectacular ways. I try to remind myself constantly of this and when implementing systems - start with what exists and work from there.
@@ -91,14 +91,15 @@ Every project is managed by a dedicated Trello board, shared with clients, so yo
 ### Tools
 Preferred tools &amp; technologies where I have the most experience.
 
-* Collaboration: Google Apps, Trello, Toggl, Github
-* Javascript: Node.js, Meteor, React, Knockout.js
-* Python: Django, Wagtail, Web2py, Flask
+* Collaboration: G-Suite (Google Apps), Trello, Toggl, Github
+* Server/Fullstack Frameworks: Django, Wagtail, Web2py, Flask, Meteor
+* Frontend Frameworks: Elm, React, Knockout.js
+* CSS Frameworks: Bootstrap, Bulma, Semantic UI
+* Languages: Python, Javascript (Node.js and client side)
 * Code: Atom editor, Git, ESlint
-* CSS Framework: Bootstrap, Semantic UI
 * Platforms: Google Cloud Platform, Modulus
 * Adobe: InDesign, Illustrator and Photoshop
-* Other: Saasu, Google Chrome, Mailchimp, Wordpress, PCO
+* Other: Saasu, Xero, Google Chrome, Mailchimp, Wordpress, PCO
 
 <a name="posts"></a>
 ## Posts
