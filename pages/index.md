@@ -2,7 +2,7 @@
 title: "Welcome"
 ---
 
-Absolutely passionate to understand how things work, create and improve systems. My name is LB (pronounced 'Albi') and this site has a bit of info to help you get to know me.
+Absolutely passionate to understand how things work, create and improve systems. My name is LB (pronounced 'Albi'), I am a Christian, married to the amazing [Bec](https://www.instagram.com/becj/) and this site has a bit of info to help you get to know me.
 
 <a name="process"></a>
 ## Process
