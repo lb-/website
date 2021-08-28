@@ -19,7 +19,15 @@ I would love to help you add structure where you need it in your business.
 <a name="past"></a>
 ## Past
 
-A selection of past employment, more on my [Linkedin profile](https://www.linkedin.com/in/lbbenjohnston).
+A selection of past employment, more on my [Linkedin profile](https://www.linkedin.com/in/lb-/).
+
+### Senior Frontend Developer at Virgin Australlia
+__2018-Current__
+React, Javascript.
+
+### Core Team member on Wagtail CMS
+__2017-Current__
+Volunteer role - Python, Django.
 
 ### Digital Marketing Consultant at Brisbane Christian College
 __2017__
@@ -93,7 +101,7 @@ Preferred tools &amp; technologies where I have the most experience.
 
 * Collaboration: G-Suite (Google Apps), Trello, Toggl, Github
 * Server/Fullstack Frameworks: Django, Wagtail, Web2py, Flask, Meteor
-* Frontend Frameworks: Elm, React, Knockout.js
+* Frontend Frameworks: React
 * CSS Frameworks: Bootstrap, Bulma, Semantic UI
 * Languages: Python, Javascript (Node.js and client side)
 * Code: Atom editor, Git, ESlint
@@ -103,4 +111,4 @@ Preferred tools &amp; technologies where I have the most experience.
 
 <a name="posts"></a>
 ## Posts
-I have a few thoughts and ramblings on [Posts by LB](https://posts-by.lb.ee) - my Medium Publication.
+I have a few developer focused tutorials on [dev.to](https://dev.to/lb), plus some thoughts and ramblings on [Posts by LB](https://posts-by.lb.ee) - my Medium Publication.
