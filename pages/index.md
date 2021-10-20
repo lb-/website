@@ -85,7 +85,7 @@ Enable the existing staff (non-programmers) to make the most of a custom databas
 A few thoughts on how I like to approach problem solving and systems, especially in a technology rich world.
 
 ### Open Source
-Open Source Software should be the basis of solutions wherever possible and it is better to contribute to something bigger then create silos. I am currently on the core development team for [Wagtail](https://wagtail.io/) - an Open Source CMS built with Python on the Django framework. I also put together a [time formatting package for Meteor](https://atmospherejs.com/lbee/moment-helpers) which has had over 4000 downloads.
+Open Source Software should be the basis of solutions wherever possible and it is better to contribute to something bigger then create silos. I am currently on the core development team for [Wagtail](https://wagtail.io/) - an Open Source CMS built with Python on the Django framework.
 
 ### Start From a System That Works
 It can be tempting to build the whole solution or the perfect system from scratch, this always seems to fail in spectacular ways. I try to remind myself constantly of this and when implementing systems - start with what exists and work from there.
@@ -111,4 +111,4 @@ Preferred tools &amp; technologies where I have the most experience.
 
 <a name="posts"></a>
 ## Posts
-I have a few developer focused tutorials on [dev.to](https://dev.to/lb), plus some thoughts and ramblings on [Posts by LB](https://posts-by.lb.ee) - my Medium Publication.
+I have a few developer focused tutorials on [dev.to](https://dev.to/lb), plus some older thoughts and ramblings on [Posts by LB](https://posts-by.lb.ee) - my Medium Publication.
