@@ -21,7 +21,7 @@ I would love to help you add structure where you need it in your business.
 
 A selection of past employment, more on my [Linkedin profile](https://www.linkedin.com/in/lb-/).
 
-### Senior Frontend Developer at Virgin Australlia
+### Senior Frontend Developer at Virgin Australia
 __2018-Current__
 React, Javascript.
 
