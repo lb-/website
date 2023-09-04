@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="{{ metadata.language }}">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{{ title or metadata.title }}</title>
+		<meta
+			name="description"
+			content="{{ description or metadata.description }}"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/img/apple-touch-icon.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			href="/img/favicon-32x32.png"
+			sizes="32x32"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			href="/img/favicon-16x16.png"
+			sizes="16x16"
+		/>
+		<link rel="manifest" href="/img/manifest.json" />
+		<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#f36f54" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<meta
+			name="google-site-verification"
+			content="WQf-OgwU2dYQg0ZiEKg0iDC04Fc5JAhJbz8p8PyUPtY"
+		/>
+		<meta name="msapplication-config" content="/img/browserconfig.xml" />
+		<meta name="theme-color" content="#f36f54" />
+		{%- css %}{% include "public/css/index.css" %}{% endcss %} {%- css %}{%
+		include "node_modules/bulma/css/bulma.css" %}{% endcss %}
+		<style>
+			{% getBundle "css" %}
+		</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+		<header>
+			<a href="/" class="home-link">{{ metadata.title }}</a>
+			<nav>
+				<a href="#process">Process</a>
+				<a href="#past">Past</a>
+				<a href="#projects">Projects</a>
+				<a href="#philosophy">Philosophy</a>
+				<a href="#posts">Posts</a>
+				<a href="#contact">Contact</a>
+			</nav>
+			<figure class="image is-square is-logo">
+				<img src="/images/lb-logo.svg" />
+			</figure>
+		</header>
+
+		<main id="skip">
+			{{ content | safe }}
+
+			<div class="columns">
+				<div class="content is-large column">
+					<section id="contact" class="has-text-centered section">
+						<h2>Contact</h2>
+						<p>
+							If you have a project in mind, looking for some advice on cloud
+							services or keen to get in touch.
+						</p>
+						<h3>General</h3>
+						<div class="hero-buttons">
+							<a href="mailto:mail@lb.ee" class="button is-medium">
+								<span class="icon">
+									<i aria-hidden="true" class="fa fa-envelope fa-fw"></i>
+								</span>
+								<span>mail@lb.ee</span></a
+							>
+							<a href="http://telegram.me/lb_ee" class="button is-medium">
+								<span class="icon">
+									<i aria-hidden="true" class="fa fa-paper-plane-o fa-fw"></i>
+								</span>
+								<span> <strong>Telegram</strong>/lb_ee</span>
+							</a>
+							<a href="skype:live:skype_7126?userinfo" class="button is-medium"
+								><span class="icon"
+									><i aria-hidden="true" class="fa fa-skype fa-fw"></i></span
+								><span>skype@lb.ee</span></a
+							><a
+								href="https://www.linkedin.com/in/lbbenjohnston"
+								class="button is-medium"
+								><span class="icon"
+									><i aria-hidden="true" class="fa fa-linkedin fa-fw"></i></span
+								><span><strong>Linkedin</strong>/lbbenjohnston</span></a
+							>
+						</div>
+						<h3>Code</h3>
+						<div class="hero-buttons">
+							<a href="https://github.com/lb-/" class="button is-medium"
+								><span class="icon"
+									><i aria-hidden="true" class="fa fa-github fa-fw"></i></span
+								><span><strong>Github</strong>/lb-</span></a
+							><a
+								href="https://stackoverflow.com/users/8070948/lb-ben-johnston"
+								class="button is-medium"
+								><span class="icon"
+									><i
+										aria-hidden="true"
+										class="fa fa-stack-overflow fa-fw"
+									></i></span
+								><span><strong>Stack Overflow</strong>/lb-ben-johnston</span></a
+							>
+						</div>
+						<h3>Socials</h3>
+						<div class="hero-buttons">
+							<a href="https://medium.com/@_lb_" class="button is-medium"
+								><span class="icon"
+									><i aria-hidden="true" class="fa fa-medium fa-fw"></i></span
+								><span><strong>Medium</strong>/@_lb_</span></a
+							><a
+								href="https://www.goodreads.com/lb_ee"
+								class="button is-medium"
+								><span class="icon"
+									><i aria-hidden="true" class="fa fa-book fa-fw"></i></span
+								><span><strong>Goodreads</strong>/lb_ee</span></a
+							><a
+								href="https://www.beanhunter.com/users/lbeeee"
+								class="button is-medium"
+								><span class="icon"
+									><i aria-hidden="true" class="fa fa-coffee fa-fw"></i></span
+								><span><strong>Beanhunter</strong>/lbeeee</span></a
+							><a
+								href="https://www.instagram.com/_lb_/"
+								class="button is-medium"
+								><span class="icon"
+									><i
+										aria-hidden="true"
+										class="fa fa-instagram fa-fw"
+									></i></span
+								><span><strong>Instagram</strong>/@_lb_</span></a
+							>
+						</div>
+					</section>
+				</div>
+			</div>
+		</main>
+
+		<footer class="footer">
+			<div class="container">
+				<div class="content has-text-centered">
+					<p>
+						Made by LB with <a href="https://www.11ty.dev/">11ty</a>,&nbsp;
+						<a href="http://bulma.io/">Bulma</a> and hosted with
+						<a href="https://pages.cloudflare.com/">Cloudflare Pages</a>.
+						<br />
+						Using the
+						<a href="https://fonts.google.com/specimen/Oxygen">Oxygen</a>
+						and&nbsp;
+						<a href="https://fonts.google.com/specimen/Josefin+Slab"
+							>Josefin Slab</a
+						>
+						fonts.
+					</p>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Current page: {{ page.url | htmlBaseUrl }} -->
+	</body>
+</html>

@@ -3,14 +3,6 @@
 	"description": "lb.ee Personal Website",
 	"version": "1.0.0",
 	"private": "true",
-	"scripts": {
-		"build": "npx @11ty/eleventy",
-		"build-ghpages": "npx @11ty/eleventy --pathprefix=/eleventy-base-blog/",
-		"start": "npx @11ty/eleventy --serve --quiet",
-		"debug": "DEBUG=Eleventy* npx @11ty/eleventy",
-		"debugstart": "DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
-		"benchmark": "DEBUG=Eleventy:Benchmark* npx @11ty/eleventy"
-	},
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/lb-/website.git"
@@ -28,6 +20,14 @@
 	"engines": {
 		"node": ">=18"
 	},
+	"scripts": {
+		"build": "npx @11ty/eleventy",
+		"build-ghpages": "npx @11ty/eleventy --pathprefix=/eleventy-base-blog/",
+		"start": "npx @11ty/eleventy --serve --quiet",
+		"debug": "DEBUG=Eleventy* npx @11ty/eleventy",
+		"debugstart": "DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
+		"benchmark": "DEBUG=Eleventy:Benchmark* npx @11ty/eleventy"
+	},
 	"devDependencies": {
 		"@11ty/eleventy": "^2.0.1",
 		"@11ty/eleventy-img": "^3.1.0",
@@ -37,5 +37,8 @@
 		"@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
 		"luxon": "^3.3.0",
 		"markdown-it-anchor": "^8.6.7"
+	},
+	"dependencies": {
+		"bulma": "0.9.4"
 	}
 }
