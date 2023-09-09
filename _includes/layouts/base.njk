@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="{{ metadata.language }}">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{{ title or metadata.title }}</title>
+		<meta
+			name="description"
+			content="{{ description or metadata.description }}" />
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/img/apple-touch-icon.png" />
+		<link
+			rel="icon"
+			type="image/png"
+			href="/img/favicon-32x32.png"
+			sizes="32x32" />
+		<link
+			rel="icon"
+			type="image/png"
+			href="/img/favicon-16x16.png"
+			sizes="16x16" />
+		<link rel="manifest" href="/img/manifest.json" />
+		<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#f36f54" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<meta
+			name="google-site-verification"
+			content="WQf-OgwU2dYQg0ZiEKg0iDC04Fc5JAhJbz8p8PyUPtY" />
+		<meta name="msapplication-config" content="/img/browserconfig.xml" />
+		<meta name="theme-color" content="#f36f54" />
+		<!-- prettier-ignore -->
+		{%- css %}{%include "node_modules/bulma/css/bulma.css" %}{% endcss %}
+		<!-- prettier-ignore -->
+		{%- css %}{%include "public/css/index.css" %}{% endcss %}
+		<style>
+			{% getBundle "css" %}
+		</style>
+	</head>
+	<body class="columns is-multiline">
+		<header class="column is-half-desktop is-one-third-tablet">
+			<a href="#skip" class="is-sr-only">Skip to main content</a>
+			<nav>
+				<a href="#process">Process</a>
+				<a href="#past">Past</a>
+				<a href="#projects">Projects</a>
+				<a href="#philosophy">Philosophy</a>
+				<a href="#posts">Posts</a>
+				<a href="#contact">Contact</a>
+			</nav>
+			<figure class="image is-square is-logo">
+				<img src="/img/lb-logo.svg" />
+			</figure>
+		</header>
+		<main
+			id="skip"
+			class="column is-half-desktop is-two-thirds-tablet content markdown section">
+			{{ content | safe }}
+		</main>
+		<aside class="column is-full has-text-centered hero content">
+			<h2>Contact</h2>
+			<p>
+				If you have a project in mind, looking for some advice on cloud services
+				or keen to get in touch.
+			</p>
+			<h3>General</h3>
+			<div class="hero-buttons">
+				<a href="mailto:mail@lb.ee" class="button is-medium">mail@lb.ee</a>
+				<a href="http://telegram.me/lb_ee" class="button is-medium">
+					<strong>Telegram</strong>
+					/lb_ee
+				</a>
+				<a
+					href="https://www.linkedin.com/in/lbbenjohnston"
+					class="button is-medium">
+					<strong>Linkedin</strong>
+					/lbbenjohnston
+				</a>
+			</div>
+			<h3>Code</h3>
+			<div class="hero-buttons">
+				<a href="https://github.com/lb-/" class="button is-medium">
+					<strong>Github</strong>
+					/lb-
+				</a>
+				<a
+					href="https://stackoverflow.com/users/8070948/lb-ben-johnston"
+					class="button is-medium">
+					<strong>Stack Overflow</strong>
+					/lb-ben-johnston
+				</a>
+			</div>
+		</aside>
+		<footer class="footer column is-full">
+			<div class="container">
+				<div class="content has-text-centered">
+					<p>
+						Made by LB with
+						<a href="https://www.11ty.dev/">11ty</a>
+						,&nbsp;
+						<a href="http://bulma.io/">Bulma</a>
+						and hosted with
+						<a href="https://pages.cloudflare.com/">Cloudflare Pages</a>
+						.
+						<br />
+					</p>
+				</div>
+			</div>
+		</footer>
+		<!-- Current page: {{ page.url | htmlBaseUrl }} -->
+	</body>
+</html>

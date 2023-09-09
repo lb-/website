@@ -1,32 +1,49 @@
 {
-  "name": "lb-personal-website",
-  "description": "lb.ee Personal Website",
-  "version": "1.0.0",
-  "author": "LB <mail@lb.ee>",
-  "repository": "https://github.com/lb-/personal-website",
-  "dependencies": {
-    "caniuse-db": "^1.0.30000709",
-    "chroma-js": "^0.7.2",
-    "gatsby": "^0.12.38",
-    "lodash": "^4.17.2",
-    "react-addons-css-transition-group": "^15.4.2",
-    "react-document-title": "^2.0.1",
-    "react-fontawesome": "^1.5.0",
-    "underscore.string": "^3.2.2"
-  },
-  "keywords": [
-    "website",
-    "personal website"
-  ],
-  "license": "MIT",
-  "main": "n/a",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "develop": "gatsby develop",
-    "build": "gatsby build",
-    "deploy": "gatsby build --prefix-links && gh-pages -d public"
-  },
-  "devDependencies": {
-    "caniuse-db": "^1.0.30000709"
-  }
+	"name": "lb-personal-website",
+	"description": "lb.ee Personal Website",
+	"version": "1.0.0",
+	"private": "true",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/lb-/website.git"
+	},
+	"author": {
+		"name": "LB (Ben) Johnston",
+		"email": "mail@lb.ee",
+		"url": "https://lb.ee/"
+	},
+	"keywords": [
+		"website",
+		"personal website"
+	],
+	"license": "MIT",
+	"engines": {
+		"node": ">=18"
+	},
+	"scripts": {
+		"build": "npx @11ty/eleventy",
+		"build-ghpages": "npx @11ty/eleventy --pathprefix=/eleventy-base-blog/",
+		"start": "npx @11ty/eleventy --serve --quiet",
+		"debug": "DEBUG=Eleventy* npx @11ty/eleventy",
+		"debugstart": "DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
+		"benchmark": "DEBUG=Eleventy:Benchmark* npx @11ty/eleventy"
+	},
+	"devDependencies": {
+		"@11ty/eleventy": "^2.0.1",
+		"@11ty/eleventy-img": "^3.1.0",
+		"@11ty/eleventy-navigation": "^0.3.5",
+		"@11ty/eleventy-plugin-bundle": "^1.0.4",
+		"@11ty/eleventy-plugin-rss": "^1.2.0",
+		"@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+		"luxon": "^3.3.0",
+		"markdown-it-anchor": "^8.6.7",
+		"prettier": "3.0.3"
+	},
+	"dependencies": {
+		"bulma": "0.9.4"
+	},
+	"prettier": {
+		"htmlWhitespaceSensitivity": "ignore",
+		"bracketSameLine": true
+	}
 }
