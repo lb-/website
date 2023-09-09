@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>{{ title or metadata.title }}</title>
+		<title>{{ title or metadata.title }} | lb.ee</title>
 		<meta
 			name="description"
 			content="{{ description or metadata.description }}" />
@@ -38,8 +38,9 @@
 		</style>
 	</head>
 	<body class="columns is-multiline">
+		<a href="#skip" class="is-sr-only">Skip to main content</a>
+		{% if page.url == "/" %}
 		<header class="column is-half-desktop is-one-third-tablet">
-			<a href="#skip" class="is-sr-only">Skip to main content</a>
 			<nav>
 				<a href="#process">Process</a>
 				<a href="#past">Past</a>
@@ -52,45 +53,14 @@
 				<img src="/img/lb-logo.svg" />
 			</figure>
 		</header>
+		{% else %}
+		<header class="is-sr-only">Posts by LB</header>
+		{% endif %}
 		<main
 			id="skip"
-			class="column is-half-desktop is-two-thirds-tablet content markdown section">
+			class="column {% if page.url == '/' %}home is-half-desktop is-two-thirds-tablet{% else %}generic is-full{% endif %} content section">
 			{{ content | safe }}
 		</main>
-		<aside class="column is-full has-text-centered hero content">
-			<h2>Contact</h2>
-			<p>
-				If you have a project in mind, looking for some advice on cloud services
-				or keen to get in touch.
-			</p>
-			<h3>General</h3>
-			<div class="hero-buttons">
-				<a href="mailto:mail@lb.ee" class="button is-medium">mail@lb.ee</a>
-				<a href="http://telegram.me/lb_ee" class="button is-medium">
-					<strong>Telegram</strong>
-					/lb_ee
-				</a>
-				<a
-					href="https://www.linkedin.com/in/lbbenjohnston"
-					class="button is-medium">
-					<strong>Linkedin</strong>
-					/lbbenjohnston
-				</a>
-			</div>
-			<h3>Code</h3>
-			<div class="hero-buttons">
-				<a href="https://github.com/lb-/" class="button is-medium">
-					<strong>Github</strong>
-					/lb-
-				</a>
-				<a
-					href="https://stackoverflow.com/users/8070948/lb-ben-johnston"
-					class="button is-medium">
-					<strong>Stack Overflow</strong>
-					/lb-ben-johnston
-				</a>
-			</div>
-		</aside>
 		<footer class="footer column is-full">
 			<div class="container">
 				<div class="content has-text-centered">

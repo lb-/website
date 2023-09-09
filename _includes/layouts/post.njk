@@ -1,0 +1,9 @@
+---
+layout: layouts/base.njk
+---
+
+<h2>{{ title or metadata.title }}</h2>
+<p>{{ description }}</p>
+<div>
+	{{ content | safe }}
+</div>
