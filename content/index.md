@@ -49,7 +49,7 @@ IT Strategy, Systems, Processes and Knowledge Management.
 
 ### Board Member at Youth Alive Queensland
 
-**2014—Current**
+**2014—2022**
 Finance, Accounts and Systems Advice.
 
 ### Business Manager at Life Church Brisbane
@@ -144,4 +144,4 @@ Preferred tools &amp; technologies where I have the most experience.
 
 ## Posts
 
-I have a few developer focused tutorials on [dev.to](https://dev.to/lb), plus some older thoughts and ramblings on [Posts by LB](https://posts-by.lb.ee) - my Medium Publication.
+I have a few developer focused tutorials on [dev.to](https://dev.to/lb).
