@@ -1,0 +1,393 @@
+---
+permalink: "posts/dev-wagtail-extending-the-functionality-of-email-forms-232c8469ac97/"
+title: Extending The Functionality of Email Forms in Wagtail
+description: For developers using the Wagtail CMS, intending to add more functionality to their email forms.
+date: 2017-02-15
+tags:
+  - django
+  - python
+  - wagtail
+---
+
+<article aria-labelledby="post-title" class="h-entry">
+  <div class="section-content">
+    <div class="section-inner sectionLayout--insetColumn">
+      <h4
+        name="011f"
+        id="011f"
+        class="graf graf--h4 graf-after--h3 graf--subtitle">
+        For developers using the Wagtail CMS, intending to add more
+        functionality to their email forms.
+      </h4>
+      <figure name="74b4" id="74b4" class="graf graf--figure graf-after--h4">
+        <img
+          class="graf-image"
+          data-image-id="1*TNjYmUsoOLxtmW_IIZPviQ.png"
+          data-width="2413"
+          data-height="871"
+          src="/img/posts/medium/1 TNjYmUsoOLxtmW_IIZPviQ.png" />
+        <figcaption class="imageCaption">
+          Tip: The ‘Forms’ sidebar item will only show up after you have your
+          first Form created. Nifty!
+        </figcaption>
+      </figure>
+      <p name="b1f4" id="b1f4" class="graf graf--p graf-after--figure">
+        The problem — you want to extend what shows up in the email from
+        Wagtail’s form pages.
+      </p>
+      <p name="e18b" id="e18b" class="graf graf--p graf-after--p">
+        The solution — extend the ‘send_mail’ function on your form, this is not
+        in the docs but it is available.
+      </p>
+      <h3 name="cc1b" id="cc1b" class="graf graf--h3 graf-after--p">
+        What is Wagtail?
+      </h3>
+      <p name="e939" id="e939" class="graf graf--p graf-after--h3">
+        <a
+          href="https://wagtail.io/"
+          data-href="https://wagtail.io/"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          Wagtail
+        </a>
+        is a
+        <a
+          href="https://en.wikipedia.org/wiki/Content_management_system"
+          data-href="https://en.wikipedia.org/wiki/Content_management_system"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          Content Management System
+        </a>
+        (CMS) built on top of the
+        <a
+          href="https://www.djangoproject.com/"
+          data-href="https://www.djangoproject.com/"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          Django Web Framework
+        </a>
+        . It is written in Python and wherever possible does not reinvent the
+        wheel so you can use a lot of the Django world really easily. The thing
+        I love about it is that the admin user interface is really well thought
+        out, beautiful and easy to use.
+      </p>
+      <figure name="dce5" id="dce5" class="graf graf--figure graf-after--p">
+        <img
+          class="graf-image"
+          data-image-id="1*oTTKokkewlOPMj0KJQd0Vw.png"
+          data-width="2444"
+          data-height="1341"
+          src="/img/posts/medium/1 oTTKokkewlOPMj0KJQd0Vw.png" />
+        <figcaption class="imageCaption">
+          Wagtail CMS admin — helpful and clean.
+        </figcaption>
+      </figure>
+      <p name="c629" id="c629" class="graf graf--p graf-after--figure">
+        I have been using Wagtail actively for the last four months after
+        reviewing a cross-section of Python and PHP CMS options for a company I
+        am working for. We have been building an internal wiki/intranet style
+        application and starting with a CMS as the backbone has helped us get up
+        and running much faster.
+      </p>
+      <h3 name="78d5" id="78d5" class="graf graf--h3 graf-after--p">
+        Is There A Way To….
+      </h3>
+      <p name="216e" id="216e" class="graf graf--p graf-after--h3">
+        It did not take long for our team to ask questions about submitting
+        forms and requests (maintenance requests, design requests, etc) as part
+        of the same system. After investigating other options for ad-hoc forms
+        such as Google Forms, we elected to dig deeper into the world of
+        Wagtail. This meant we can leverage the same codebase and keep data in
+        the same database.
+      </p>
+      <p name="6400" id="6400" class="graf graf--p graf-after--p">
+        Wagtail has a basic form builder build in, which lets the users edit
+        their own field types. Also, who the email gets sent to and custom
+        content for the response page and form page itself.
+      </p>
+      <p name="cfce" id="cfce" class="graf graf--p graf-after--p">
+        We quickly ran into a few minor issues with the form system, the forms
+        are quite basic and do not let you fully customise things or add new
+        non-basic form fields. However, some of these limitations can be solved
+        by extending the form model, here is how we solved a few of our
+        problems.
+      </p>
+      <h3 name="cdbb" id="cdbb" class="graf graf--h3 graf-after--p">
+        Extending Wagtail Form Processing and Emails
+      </h3>
+      <h4 name="45e2" id="45e2" class="graf graf--h4 graf-after--h3">
+        Build Your Form Model
+      </h4>
+      <p name="feab" id="feab" class="graf graf--p graf-after--h4">
+        You will need to have Wagtail up and running, this post won’t cover that
+        for you, the
+        <a
+          href="http://docs.wagtail.io/"
+          data-href="http://docs.wagtail.io/"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          Wagtail Docs
+        </a>
+        are great and should be enough to get you started. You need to have a
+        form page type available in Wagtail before you do anything else. The
+        <a
+          href="http://docs.wagtail.io/en/v1.8.1/reference/contrib/forms.html"
+          data-href="http://docs.wagtail.io/en/v1.8.1/reference/contrib/forms.html"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          Form section on Wagtail Docs
+        </a>
+        will be sufficient to get you up and running with your first form page
+        model.
+      </p>
+      <h4 name="79e7" id="79e7" class="graf graf--h4 graf-after--p">
+        Planning The Changes
+      </h4>
+      <p name="76aa" id="76aa" class="graf graf--p graf-after--h4">
+        We want to enable the following items on our form model, this means that
+        all form pages that use this model will have these features.
+      </p>
+      <ol class="postList">
+        <li name="503e" id="503e" class="graf graf--li graf-after--p">
+          Email subject and body should contain the
+          <strong class="markup--strong markup--li-strong">
+            date the form was submitted
+          </strong>
+          .
+        </li>
+        <li name="9a8d" id="9a8d" class="graf graf--li graf-after--li">
+          Email body should contain a
+          <strong class="markup--strong markup--li-strong">
+            link to where the form was submitted
+          </strong>
+          .
+        </li>
+      </ol>
+      <p name="985b" id="985b" class="graf graf--p graf-after--li">
+        Tip: The benefit of unique email subjects is that they will not get
+        threaded together in email clients.
+      </p>
+      <h4 name="70bd" id="70bd" class="graf graf--h4 graf-after--p">
+        Understanding the send_mail Function
+      </h4>
+      <p name="c998" id="c998" class="graf graf--p graf-after--h4">
+        In Wagtail version 1.7 the email functionality was extracted out into a
+        <em class="markup--em markup--p-em">send_mail</em>
+        function, you can see the pull request
+        <a
+          href="https://github.com/wagtail/wagtail/pull/2926"
+          data-href="https://github.com/wagtail/wagtail/pull/2926"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          here
+        </a>
+        . The function we will be overriding can be seen in
+        <a
+          href="https://github.com/wagtail/wagtail/blob/169045b186f15352a9526f4c5cf07329676e7c69/wagtail/wagtailforms/models.py"
+          data-href="https://github.com/wagtail/wagtail/blob/169045b186f15352a9526f4c5cf07329676e7c69/wagtail/wagtailforms/models.py"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          wagtail/wagtail/wagtailforms/models.py
+        </a>
+        .
+      </p>
+      <p name="a4ab" id="a4ab" class="graf graf--p graf-after--p">
+        <strong class="markup--strong markup--p-strong">
+          send_mail(self, form)
+        </strong>
+      </p>
+      <p name="ebf8" id="ebf8" class="graf graf--p graf-after--p">
+        Essentially this goes through all the fields in the form, note that the
+        <em class="markup--em markup--p-em">form</em>
+        object in this case is the POST request to the form page, not the actual
+        database submission row. The final call to another
+        <em class="markup--em markup--p-em">send_mail</em>
+        is from
+        <em class="markup--em markup--p-em">wagtail.wagtailadmin.utils</em>
+        and this does the actual sending using Django’s built in emailing.
+      </p>
+      <pre
+        name="2feb"
+        id="2feb"
+        class="graf graf--pre graf-after--p">def send_mail(self, form):<br>        addresses = [x.strip() for x in self.to_address.split(&#39;,&#39;)]<br>        content = []<br>        for field in form:<br>            value = field.value()<br>            if isinstance(value, list):<br>                value = &#39;, &#39;.join(value)<br>            content.append(&#39;{}: {}&#39;.format(field.label, value))<br>        content = &#39;\n&#39;.join(content)<br>        send_mail(<br>            self.subject, content, addresses, self.from_address)</pre>
+      <h4 name="8ba1" id="8ba1" class="graf graf--h4 graf-after--pre">
+        Adding Submission Date
+      </h4>
+      <p name="2e12" id="2e12" class="graf graf--p graf-after--h4">
+        I will be forking the wagtaildemo for this code and this will be
+        available on Github. You will need to go to where your Form Page class
+        is modelled, in the demo it is in demo/models.py — something like
+        <em class="markup--em markup--p-em">
+          class FormPage(AbstractEmailForm).
+        </em>
+      </p>
+      <p name="6bce" id="6bce" class="graf graf--p graf-after--p">
+        To get started we will simply copy and paste the
+        <em class="markup--em markup--p-em">send_mail</em>
+        function described above into our model and then test that emails still
+        work as intended.
+      </p>
+      <p name="2eed" id="2eed" class="graf graf--p graf-after--p">
+        You will need to also import the final send_mail function by adding it
+        to the top of your models.py
+      </p>
+      <pre name="e1cb" id="e1cb" class="graf graf--pre graf-after--p">
+from wagtail.wagtailadmin.utils import send_mail</pre
+      >
+      <p name="3a1e" id="3a1e" class="graf graf--p graf-after--pre">
+        Your class definition should look like this:
+      </p>
+      <pre
+        name="ec35"
+        id="ec35"
+        class="graf graf--pre graf-after--p">class FormPage(AbstractEmailForm):<br>    intro = RichTextField(blank=True)<br>    thank_you_text = RichTextField(blank=True)</pre>
+      <pre
+        name="7eda"
+        id="7eda"
+        class="graf graf--pre graf-after--pre">    content_panels = [<br>        FieldPanel(&#39;title&#39;, classname=&quot;full title&quot;),<br>        FieldPanel(&#39;intro&#39;, classname=&quot;full&quot;),<br>        InlinePanel(&#39;form_fields&#39;, label=&quot;Form fields&quot;),<br>        FieldPanel(&#39;thank_you_text&#39;, classname=&quot;full&quot;),<br>        MultiFieldPanel([<br>            FieldRowPanel([<br>                FieldPanel(&#39;from_address&#39;, classname=&quot;col6&quot;),<br>                FieldPanel(&#39;to_address&#39;, classname=&quot;col6&quot;),<br>            ]),<br>            FieldPanel(&#39;subject&#39;),<br>        ], &quot;Email&quot;),<br>    ]</pre>
+      <pre
+        name="eb6b"
+        id="eb6b"
+        class="graf graf--pre graf-after--pre">    def send_mail(self, form):<br>        addresses = [x.strip() for x in self.to_address.split(&#39;,&#39;)]<br>        content = []<br>        for field in form:<br>            value = field.value()<br>            if isinstance(value, list):<br>                value = &#39;, &#39;.join(value)<br>            content.append(&#39;{}: {}&#39;.format(field.label, value))<br>        content = &#39;\n&#39;.join(content)<br>        send_mail(<br>            self.subject, content, addresses, self.from_address)</pre>
+      <p name="fd2f" id="fd2f" class="graf graf--p graf-after--pre">
+        Test that emails send as intended before moving forward, one step at a
+        time.
+      </p>
+      <p name="ab2a" id="ab2a" class="graf graf--p graf-after--p">
+        In the final send_mail call it uses self.subject, this refers to the
+        subject defined by the user when they are editing the form. We are going
+        to flesh this out and add our date. Our last two lines of our override
+        send_mail function will look like below:
+      </p>
+      <pre
+        name="8ced"
+        id="8ced"
+        class="graf graf--pre graf-after--p">subject = self.subject + &quot; - &quot; + date.today().strftime(&#39;%x&#39;)<br>send_mail(subject, content, addresses, self.from_address)</pre>
+      <p name="ae41" id="ae41" class="graf graf--p graf-after--pre">
+        I used
+        <em class="markup--em markup--p-em">date.today()</em>
+        because date was already imported in the demo model, and formatted as
+        the locale’s date representation with strftime and %x.
+      </p>
+      <p name="78d8" id="78d8" class="graf graf--p graf-after--p">
+        Our email subjects will now look like
+        <em class="markup--em markup--p-em">
+          Maintenance Request Submitted — 02/15/17
+        </em>
+        (depending on your location and the subject entered).
+      </p>
+      <p name="08f9" id="08f9" class="graf graf--p graf-after--p">
+        Now we can add the date to the body of the email, using the same format
+        as the fields with their labels.
+      </p>
+      <pre
+        name="fbfe"
+        id="fbfe"
+        class="graf graf--pre graf-after--p">submitted_date_str = date.today().strftime(&#39;%x&#39;)<br>content.append(&#39;{}: {}&#39;.format(&#39;Submitted&#39;, submitted_date_str))<br>content = &#39;\n&#39;.join(content)<br>subject = self.subject + &quot; - &quot; + submitted_date_str<br>send_mail(subject, content, addresses, self.from_address)</pre>
+      <p name="8a73" id="8a73" class="graf graf--p graf-after--pre">
+        This means that at the bottom of the email there will be a ‘Submitted:
+        02/15/17’ line.
+      </p>
+      <h4 name="bd1e" id="bd1e" class="graf graf--h4 graf-after--p">
+        Adding a Link to The Form
+      </h4>
+      <p name="71eb" id="71eb" class="graf graf--p graf-after--h4">
+        Now that we have done all the work above, this next step becomes a lot
+        easier. Simply add the following line (before the content items are
+        joined).
+      </p>
+      <pre name="61ff" id="61ff" class="graf graf--pre graf-after--p">
+content.append(&#39;{}: {}&#39;.format(&#39;Submitted Via&#39;, self.full_url))</pre
+      >
+      <p name="3d10" id="3d10" class="graf graf--p graf-after--pre">
+        This will create a line in the email body that looks like:
+      </p>
+      <p name="04b0" id="04b0" class="graf graf--p graf-after--p">
+        <em class="markup--em markup--p-em">Submitted Via:</em>
+        <a
+          href="http://localhost/maintenance-request/"
+          data-href="http://localhost/maintenance-request/"
+          class="markup--anchor markup--p-anchor"
+          rel="nofollow"
+          target="_blank">
+          <em class="markup--em markup--p-em">
+            http://my-domain.com/maintenance-request/
+          </em>
+        </a>
+      </p>
+      <p name="82e3" id="82e3" class="graf graf--p graf-after--p">
+        Remember that
+        <em class="markup--em markup--p-em">self</em>
+        refers to the page class, which extends the original page model, this
+        model has some great helper functions like
+        <em class="markup--em markup--p-em">full_url</em>
+        which will give you a URL that will work in emails. Remember that
+        relative URLs will not work in email.
+      </p>
+      <h3 name="541f" id="541f" class="graf graf--h3 graf-after--p">
+        Finishing Up
+      </h3>
+      <p name="d4d7" id="d4d7" class="graf graf--p graf-after--h3">
+        Our final FormPage class now looks like the following:
+      </p>
+      <pre
+        name="a54c"
+        id="a54c"
+        class="graf graf--pre graf-after--p">class FormPage(AbstractEmailForm):<br>    intro = RichTextField(blank=True)<br>    thank_you_text = RichTextField(blank=True)</pre>
+      <pre
+        name="9ddf"
+        id="9ddf"
+        class="graf graf--pre graf-after--pre">    content_panels = [<br>        FieldPanel(&#39;title&#39;, classname=&quot;full title&quot;),<br>        FieldPanel(&#39;intro&#39;, classname=&quot;full&quot;),<br>        InlinePanel(&#39;form_fields&#39;, label=&quot;Form fields&quot;),<br>        FieldPanel(&#39;thank_you_text&#39;, classname=&quot;full&quot;),<br>        MultiFieldPanel([<br>            FieldRowPanel([<br>                FieldPanel(&#39;from_address&#39;, classname=&quot;col6&quot;),<br>                FieldPanel(&#39;to_address&#39;, classname=&quot;col6&quot;),<br>            ]),<br>            FieldPanel(&#39;subject&#39;),<br>        ], &quot;Email&quot;),<br>    ]</pre>
+      <pre
+        name="dc97"
+        id="dc97"
+        class="graf graf--pre graf-after--pre">    def send_mail(self, form):<br>        addresses = [x.strip() for x in self.to_address.split(&#39;,&#39;)]<br>        content = []<br>        for field in form:<br>            value = field.value()<br>            if isinstance(value, list):<br>                value = &#39;, &#39;.join(value)<br>            content.append(&#39;{}: {}&#39;.format(field.label, value))<br>        submitted_date_str = date.today().strftime(&#39;%x&#39;)<br>        content.append(&#39;{}: {}&#39;.format(<br>            &#39;Submitted&#39;, submitted_date_str))<br>        content.append(&#39;{}: {}&#39;.format(<br>            &#39;Submitted Via&#39;, self.full_url))<br>        content = &#39;\n&#39;.join(content)<br>        subject = self.subject + &quot; - &quot; + submitted_date_str<br>        send_mail(subject, content, addresses, self.from_address)</pre>
+      <p name="0f29" id="0f29" class="graf graf--p graf-after--pre">
+        This will generate an email with the subject containing the submission
+        date, and the body of the email containing the date and a helpful link
+        to where the form was submitted.
+      </p>
+      <p name="4fce" id="4fce" class="graf graf--p graf-after--p">
+        Once you have gotten this far you can start to think about better ways
+        to enhance the content of the email. For example we could add the
+        submitter’s IP address and even explore adding the Submission ID to the
+        email content.
+      </p>
+      <p name="c695" id="c695" class="graf graf--p graf-after--p">
+        I hope this was helpful, this is my first ‘code tutorial’ and I would
+        love any feedback and want to say thanks to the Wagtail community and
+        Torchbox for the incredible CMS platform they have built.
+      </p>
+      <p
+        name="8a8c"
+        id="8a8c"
+        class="graf graf--p graf-after--p graf--trailing">
+        <a
+          href="https://github.com/lb-/wagtaildemo/blob/master/demo/models.py"
+          data-href="https://github.com/lb-/wagtaildemo/blob/master/demo/models.py"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          Code available online on Github
+        </a>
+      </p>
+    </div>
+  </div>
+  <aside>
+    <p>
+      Previously hosted on
+      <a
+        href="https://medium.com/@_lb_/dev-wagtail-extending-the-functionality-of-email-forms-232c8469ac97">
+        Medium
+      </a>
+      exported on September 9, 2023.
+    </p>
+  </aside>
+</article>

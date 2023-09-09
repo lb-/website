@@ -1,0 +1,526 @@
+---
+permalink: "posts/arrest-this-man-he-talks-in-maths-629366551ee6/"
+title: Arrest This Man He Talks In Maths
+description: Chronological thoughts on week numbers and week based flows.
+date: 2017-03-23
+tags:
+  - systems
+---
+
+<article aria-labelledby="post-title" class="h-entry">
+  <div class="section-content">
+    <div class="section-inner sectionLayout--insetColumn">
+      <h4
+        name="57db"
+        id="57db"
+        class="graf graf--h4 graf-after--h3 graf--subtitle">
+        Chronological thoughts on week numbers and week based flows.
+      </h4>
+      <figure name="dcaf" id="dcaf" class="graf graf--figure graf-after--h4">
+        <img
+          class="graf-image"
+          data-image-id="1*OVHrWU4rKjMbV7lQBjNV1Q.jpg"
+          data-width="3872"
+          data-height="2592"
+          src="/img/posts/medium/1 OVHrWU4rKjMbV7lQBjNV1Q.jpg" />
+        <figcaption class="imageCaption">
+          Thanks Unsplash
+          <a
+            href="https://unsplash.com/search/calendar?photo=FoKO4DpXamQ"
+            data-href="https://unsplash.com/search/calendar?photo=FoKO4DpXamQ"
+            class="markup--anchor markup--figure-anchor"
+            rel="noopener"
+            target="_blank">
+            Source
+          </a>
+        </figcaption>
+      </figure>
+      <p name="0a66" id="0a66" class="graf graf--p graf-after--figure">
+        I have never been a big fan of our calendar, the
+        <a
+          href="https://en.wikipedia.org/wiki/Gregorian_calendar"
+          data-href="https://en.wikipedia.org/wiki/Gregorian_calendar"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          Gregorian calendar
+        </a>
+        . I live in the real world so I cannot easily change what calendar we
+        use but have always felt there must be a better way. This calendar
+        breaks up the year into 12 months, each has days ranging from 28 through
+        to 31 with February changing itself to suit our non-conformant traversal
+        around our sun. The calendar we use today has a complex history with
+        many accidents along the way. Including why February has fewer days than
+        all the others and how the calendar is not really fully in sync with
+        either the lunar months or our solar year.
+      </p>
+      <figure
+        name="3504"
+        id="3504"
+        class="graf graf--figure graf--iframe graf-after--p">
+        <iframe
+          src="https://www.youtube.com/embed/AgKaHTh-_Gs?feature=oembed"
+          width="700"
+          height="393"
+          frameborder="0"
+          scrolling="no"></iframe>
+        <figcaption class="imageCaption">
+          Great video for a brief history of our calendar with a specific focus
+          on February.
+        </figcaption>
+      </figure>
+      <p name="a352" id="a352" class="graf graf--p graf-after--figure">
+        Rather than live each day in sorrow that the calendar we are forced to
+        use in society is neither neat or logical I started researching
+        alternatives. It turns out that many times in history people have tried
+        to adjust our calendar to be either simpler or have a more logical
+        approach to it. There also many other cultural and historic methods of
+        calendars that are commonly used in parallel in some countries.
+      </p>
+      <h3 name="4744" id="4744" class="graf graf--h3 graf-after--p">
+        Positivist Calendar
+      </h3>
+      <p name="d5fc" id="d5fc" class="graf graf--p graf-after--h3">
+        My personal favourite calendar is the Positivist calendar proposed by
+        Auguste Comte in 1849. This calendar was based on our solar year (not
+        lunar months) and kept the Gregorian framework for determining years and
+        leap years. Beyond that, it starts to get a bit different.
+      </p>
+      <ul class="postList">
+        <li name="9020" id="9020" class="graf graf--li graf-after--p">
+          Thirteen months, all with different names to our current calendar.
+        </li>
+        <li name="b2a5" id="b2a5" class="graf graf--li graf-after--li">
+          Each month has exactly 28 days (13 x 28 = 364).
+        </li>
+        <li name="3ad8" id="3ad8" class="graf graf--li graf-after--li">
+          Day 365 was outside of the normal week cycle.
+        </li>
+        <li name="b25e" id="b25e" class="graf graf--li graf-after--li">
+          Leap years had a 366th day which was also outside the normal week
+          cycle.
+        </li>
+      </ul>
+      <p name="0c18" id="0c18" class="graf graf--p graf-after--li">
+        While this can seem very foreign at first, there is a beautiful
+        simplicity to it, especially when you start digging into the numbers.
+        For example, the 1st day of the first month would always be a Monday no
+        matter what year it is. The first day of the fourth month, would also
+        always be a Monday. Each month is a consistent set of four weeks no
+        matter when it is. Compared to our months, we have approximately 4.3333
+        weeks per month and the 1st of January could be any weekday.
+      </p>
+      <h3 name="549b" id="549b" class="graf graf--h3 graf-after--p">
+        Thinking in Weeks
+      </h3>
+      <p name="2c76" id="2c76" class="graf graf--p graf-after--h3">
+        The core framework of the Positivist calendar is the concept of a week
+        and keeping weeks as consistent as possible throughout the year. The
+        reality of our solar year means that we have to work with a number that
+        is not very friendly. 365 gives us only two workable factors, 5 and
+        73 — each of which could be very confusing if implemented. Imagine a
+        calendar where we had 73 weeks a year, each with five days.
+      </p>
+      <p name="a834" id="a834" class="graf graf--p graf-after--p">
+        If we consider the leap year, we could look at a four-year cycle with
+        each year being 365.25 accounting for the leap year fraction. This gives
+        us a total of (365.25 x 4) 1461, this number has the following factors:
+        3 and 487 which is even less friendly.
+      </p>
+      <p name="e5b6" id="e5b6" class="graf graf--p graf-after--p">
+        So if we come from the other direction, looking at what we have today,
+        one of the common structures is that of a week. A week contains seven
+        days, and while not necessarily based on anything other than convention
+        it is a nice number to work with. Dividing the year into weeks directly
+        does not work too well, we end up with 365/7 = 52.143, again the
+        four-year cycle 1461/7 = 208.714 does not help too much here either.
+        However, if our year were a bit nicer and sat at 364 days, we end up
+        with an equal number of weeks at 52. This is the beauty, and maybe
+        ignorance, of the Positivist calendar it just looks at a framework where
+        the year is close to what we no but works better for us mathematically.
+      </p>
+      <p name="3a95" id="3a95" class="graf graf--p graf-after--p">
+        364 has a lot more going for it, with a lovely array of factors to work
+        with. All these amazing numbers; 2, 4,
+        <strong class="markup--strong markup--p-strong"></strong>
+        7, 13, 14, 26, 28, 52, 91, 182.
+      </p>
+      <p name="595e" id="595e" class="graf graf--p graf-after--p">
+        This means we can look at our year with divisions of any of those
+        numbers, this helps because we like to break our year up into smaller
+        components to work within. Like our our clock, which is divided up into
+        12 parts, one of the main benefits is because it has more factors
+        available (half, quarter, one-sixth).
+      </p>
+      <h3 name="75c4" id="75c4" class="graf graf--h3 graf-after--p">
+        Living in Weeks
+      </h3>
+      <p name="83d9" id="83d9" class="graf graf--p graf-after--h3">
+        Because I cannot easily change the calendar I live by, despite my desire
+        to do so, I must learn to be flexible and compromise. Thankfully the
+        International Standards Organisation have come to my rescue, by devising
+        a way for us to break the year up into weeks in a standardised way (they
+        do love standards at the ISO).
+      </p>
+      <p name="a3ba" id="a3ba" class="graf graf--p graf-after--p">
+        Enter, the ISO Week and ISO Week Date which is part of the
+        <a
+          href="https://en.wikipedia.org/wiki/ISO_8601"
+          data-href="https://en.wikipedia.org/wiki/ISO_8601"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          ISO 8601
+        </a>
+        date standards.
+      </p>
+      <figure name="abda" id="abda" class="graf graf--figure graf-after--p">
+        <img
+          class="graf-image"
+          data-image-id="1*cDXQez_c6Tg6GV5Suxb2wg.png"
+          data-width="784"
+          data-height="913"
+          src="/img/posts/medium/1 cDXQez_c6Tg6GV5Suxb2wg.png" />
+        <figcaption class="imageCaption">
+          Source:
+          <a
+            href="https://xkcd.com/1179/"
+            data-href="https://xkcd.com/1179/"
+            class="markup--anchor markup--figure-anchor"
+            rel="nofollow noopener"
+            target="_blank">
+            https://xkcd.com/1179/
+          </a>
+        </figcaption>
+      </figure>
+      <p name="1729" id="1729" class="graf graf--p graf-after--figure">
+        Aside from the general awesomeness of this date standard, there is a
+        section about weeks and week numbers.
+      </p>
+      <h4 name="afd4" id="afd4" class="graf graf--h4 graf-after--p">
+        Enter the Week Number
+      </h4>
+      <blockquote
+        name="38e3"
+        id="38e3"
+        class="graf graf--pullquote graf-after--h4">
+        2017-W12
+      </blockquote>
+      <p name="26f5" id="26f5" class="graf graf--p graf-after--pullquote">
+        The definition for week 1 is the week with the Gregorian year’s first
+        Thursday in it. Confusing at first but it means that there is a
+        consistent first week of each year, with all weeks following in order
+        until the end of the year.
+      </p>
+      <ul class="postList">
+        <li name="8020" id="8020" class="graf graf--li graf-after--p">
+          Each week is our normal Monday to Sunday week. Some prefer to think of
+          weeks as Sunday to Saturday but ISO see Monday as the first day of the
+          week.
+        </li>
+        <li name="cf9d" id="cf9d" class="graf graf--li graf-after--li">
+          Weeks do not stop, there is a method for resolving which week it is
+          across year boundaries.
+        </li>
+        <li name="ed2e" id="ed2e" class="graf graf--li graf-after--li">
+          There is a consistent method to resolve the Leap year issues.
+        </li>
+        <li name="40c1" id="40c1" class="graf graf--li graf-after--li">
+          The format is easy to process, sometimes shortened to just 2017W12.
+        </li>
+      </ul>
+      <h4 name="89ef" id="89ef" class="graf graf--h4 graf-after--li">
+        Why Weeks Work
+      </h4>
+      <p name="2fad" id="2fad" class="graf graf--p graf-after--h4">
+        Weeks are a great single iteration unit, easy to comprehend, plan and
+        think in. Weeks are consecutive and avoid the conflicting issue of
+        months which can end at different dates and weekdays. A week works for
+        staff who do one or five days as part of their employment. Many of our
+        financial systems rely on weeks, most payroll is done as a weekly or
+        fortnightly process. Reporting becomes simpler, especially when
+        comparing year on year and you get more granular detail in your reports.
+        If most reporting is done weekly, you are forced to think about the
+        decisions you make today, not just ‘this month’.
+      </p>
+      <p name="06da" id="06da" class="graf graf--p graf-after--p">
+        There is a great post from a few years back on Wait But Why about
+        viewing your life in weeks that is well worth the read.
+      </p>
+      <div name="c697" id="c697" class="graf graf--mixtapeEmbed graf-after--p">
+        <a
+          href="http://waitbutwhy.com/2014/05/life-weeks.html"
+          data-href="http://waitbutwhy.com/2014/05/life-weeks.html"
+          class="markup--anchor markup--mixtapeEmbed-anchor"
+          title="http://waitbutwhy.com/2014/05/life-weeks.html">
+          <strong class="markup--strong markup--mixtapeEmbed-strong">
+            Your Life in Weeks - Wait But Why
+          </strong>
+          <br />
+          <em class="markup--em markup--mixtapeEmbed-em">
+            This is a long human life in years: And here&#39;s a human life in
+            months: But today, we&#39;re going to look at a human life…
+          </em>
+          waitbutwhy.com
+        </a>
+        <a
+          href="http://waitbutwhy.com/2014/05/life-weeks.html"
+          class="js-mixtapeImage mixtapeImage u-ignoreBlock"
+          data-media-id="9c7bc764fb6c6da6e5950049e113fe25"
+          data-thumbnail-img-id="0*o3f0oiowPQhqEKHx."
+          style="
+            background-image: url(https://cdn-images-1.medium.com/fit/c/160/160/0*o3f0oiowPQhqEKHx.);
+          "></a>
+      </div>
+      <p name="f29b" id="f29b" class="graf graf--p graf-after--mixtapeEmbed">
+        Weeks can be further grouped using our factors listed above:
+      </p>
+      <ul class="postList">
+        <li name="4ddf" id="4ddf" class="graf graf--li graf-after--p">
+          2 week block = fortnight
+        </li>
+        <li name="6f56" id="6f56" class="graf graf--li graf-after--li">
+          4 week block ~= month, but best to just call it a 4 week block
+        </li>
+        <li name="6593" id="6593" class="graf graf--li graf-after--li">
+          13 week block ~= a quarter
+        </li>
+        <li name="a1c2" id="a1c2" class="graf graf--li graf-after--li">
+          26 week block ~= half year
+        </li>
+        <li name="f0d1" id="f0d1" class="graf graf--li graf-after--li">
+          52 week block ~= year
+        </li>
+      </ul>
+      <p name="722b" id="722b" class="graf graf--p graf-after--li">
+        Finally, in the ISO standard, we can find a consistent approach that is
+        implemented in lots of software and means a shared language about
+        implementing weeks. The other great benefit is that we do not have to
+        abandon our Gregorian calendar, weeks work within that system. This is
+        good because my birthday is in the existing calendar system and I like
+        presents.
+      </p>
+      <h4 name="0202" id="0202" class="graf graf--h4 graf-after--p">
+        When Weeks Don’t Work
+      </h4>
+      <p name="f2eb" id="f2eb" class="graf graf--p graf-after--h4">
+        Not everything is perfect in week land, the biggest issue is obviously
+        intuitiveness. We spend our whole lives adjusting to the oddities of our
+        year and month structure, with songs in our head to remember the days.
+        Overcoming this seemingly natural approach is a bit of a roadblock,
+        however after some time (I can attest), you start to think in weeks and
+        have a rough idea of what week it is at all times.
+      </p>
+      <p name="a222" id="a222" class="graf graf--p graf-after--p">
+        Mechanically, there are other reasons such as most countries financial
+        years are based on months. The other major roadblock is when years have
+        53 weeks, our pesky leap year comes into play here meaning that some
+        years have their last week after week 52. In these years, depending on
+        the nature of your business there are other ways to work with this, like
+        grouping it in with quarter four.
+      </p>
+      <h3 name="702b" id="702b" class="graf graf--h3 graf-after--p">
+        Getting Started With Weeks
+      </h3>
+      <p name="209f" id="209f" class="graf graf--p graf-after--h3">
+        If you have read this far, you are either a family member or interested
+        in exploring your world in weeks. Here are some great ways to add the
+        ISO 8601 Week Number to your life.
+      </p>
+      <p name="004d" id="004d" class="graf graf--p graf-after--p">
+        <strong class="markup--strong markup--p-strong">
+          Google (G-Suite) Calendar — Week Numbers
+        </strong>
+      </p>
+      <ol class="postList">
+        <li name="931f" id="931f" class="graf graf--li graf-after--p">
+          Load up Google Calendar in your browser
+        </li>
+        <li name="f2d6" id="f2d6" class="graf graf--li graf-after--li">
+          Click ‘other calendars’ on the left sidebar
+        </li>
+        <li name="2bc9" id="2bc9" class="graf graf--li graf-after--li">
+          Click ‘browse interesting calendars’
+        </li>
+        <li name="e46b" id="e46b" class="graf graf--li graf-after--li">
+          Think (wow, weeks are interesting)
+        </li>
+        <li name="8906" id="8906" class="graf graf--li graf-after--li">
+          Click the ‘more’ tab
+        </li>
+        <li name="2b9f" id="2b9f" class="graf graf--li graf-after--li">
+          Last on the list is ‘week numbers’, click subscribe
+        </li>
+      </ol>
+      <p name="d20e" id="d20e" class="graf graf--p graf-after--li">
+        This will add a nice week number to your calendar, which will also be
+        available for syncing with your phone.
+      </p>
+      <p name="577f" id="577f" class="graf graf--p graf-after--p">
+        <strong class="markup--strong markup--p-strong">
+          Google Chrome Plugin
+        </strong>
+      </p>
+      <p name="05d7" id="05d7" class="graf graf--p graf-after--p">
+        I have tried a lot of these and this one is my favourite, you even get
+        to pick the colour.
+      </p>
+      <div name="2ae5" id="2ae5" class="graf graf--mixtapeEmbed graf-after--p">
+        <a
+          href="https://chrome.google.com/webstore/detail/week-number/lcdmdikpgdjoagalpngockiddgkbdaig"
+          data-href="https://chrome.google.com/webstore/detail/week-number/lcdmdikpgdjoagalpngockiddgkbdaig"
+          class="markup--anchor markup--mixtapeEmbed-anchor"
+          title="https://chrome.google.com/webstore/detail/week-number/lcdmdikpgdjoagalpngockiddgkbdaig">
+          <strong class="markup--strong markup--mixtapeEmbed-strong">
+            Week Number
+          </strong>
+          <br />
+          <em class="markup--em markup--mixtapeEmbed-em">
+            Displays week numbers
+          </em>
+          chrome.google.com
+        </a>
+        <a
+          href="https://chrome.google.com/webstore/detail/week-number/lcdmdikpgdjoagalpngockiddgkbdaig"
+          class="js-mixtapeImage mixtapeImage u-ignoreBlock"
+          data-media-id="921a9462bc86febf286766a50eff6e5f"
+          data-thumbnail-img-id="0*wPgmST9shfo_GRw0."
+          style="
+            background-image: url(https://cdn-images-1.medium.com/fit/c/160/160/0*wPgmST9shfo_GRw0.);
+          "></a>
+      </div>
+      <p name="62a6" id="62a6" class="graf graf--p graf-after--mixtapeEmbed">
+        <strong class="markup--strong markup--p-strong">
+          Useful Week Number Website
+        </strong>
+      </p>
+      <p name="6147" id="6147" class="graf graf--p graf-after--p">
+        Usually the top of a Google search, this website will always show you
+        (and your colleagues) the current week if a URL is needed. Along with
+        some handy references on how to get the week number in your favourite
+        programming language.
+      </p>
+      <div name="6888" id="6888" class="graf graf--mixtapeEmbed graf-after--p">
+        <a
+          href="https://www.epochconverter.com/weeknumbers"
+          data-href="https://www.epochconverter.com/weeknumbers"
+          class="markup--anchor markup--mixtapeEmbed-anchor"
+          title="https://www.epochconverter.com/weeknumbers">
+          <strong class="markup--strong markup--mixtapeEmbed-strong">
+            What&#39;s the Current Week Number?
+          </strong>
+          <br />
+          <em class="markup--em markup--mixtapeEmbed-em">
+            Where the return type &#39;21&#39; is ISO-8601 (week starting on
+            Monday). In Excel 2007 try WEEKNUM(TODAY(),2) (2=week starting…
+          </em>
+          www.epochconverter.com
+        </a>
+        <a
+          href="https://www.epochconverter.com/weeknumbers"
+          class="js-mixtapeImage mixtapeImage mixtapeImage--empty u-ignoreBlock"
+          data-media-id="40785f14c760bf4e44b86e0385842b39"></a>
+      </div>
+      <p name="e20c" id="e20c" class="graf graf--p graf-after--mixtapeEmbed">
+        <strong class="markup--strong markup--p-strong">
+          Calver Variation
+        </strong>
+      </p>
+      <p name="625e" id="625e" class="graf graf--p graf-after--p">
+        You could implement a Week Number variation for your software releases,
+        it keeps you thinking about what is being worked on and shipped this
+        week.
+      </p>
+      <div name="875d" id="875d" class="graf graf--mixtapeEmbed graf-after--p">
+        <a
+          href="http://calver.org/"
+          data-href="http://calver.org/"
+          class="markup--anchor markup--mixtapeEmbed-anchor"
+          title="http://calver.org/">
+          <strong class="markup--strong markup--mixtapeEmbed-strong">
+            Calendar Versioning - CalVer
+          </strong>
+          <br />
+          <em class="markup--em markup--mixtapeEmbed-em">
+            Timely Software Versioning
+          </em>
+          calver.org
+        </a>
+        <a
+          href="http://calver.org/"
+          class="js-mixtapeImage mixtapeImage mixtapeImage--empty u-ignoreBlock"
+          data-media-id="375c046da166184719194911e8ab1e7a"></a>
+      </div>
+      <p name="86fe" id="86fe" class="graf graf--p graf-after--mixtapeEmbed">
+        Scheme
+      </p>
+      <ul class="postList">
+        <li name="6c25" id="6c25" class="graf graf--li graf-after--p">
+          Format: YYYY.WW.Patch (Eg. 2017.14.00)
+        </li>
+        <li name="4b7d" id="4b7d" class="graf graf--li graf-after--li">
+          YYYY = year in full format
+        </li>
+        <li name="6d68" id="6d68" class="graf graf--li graf-after--li">
+          WW = zero padded week number according to ISO8601 week number
+        </li>
+        <li name="e437" id="e437" class="graf graf--li graf-after--li">
+          Patch for patches/changes released outside of the weekly release
+        </li>
+      </ul>
+      <h3 name="17df" id="17df" class="graf graf--h3 graf-after--li">
+        Next Week
+      </h3>
+      <p name="a9c2" id="a9c2" class="graf graf--p graf-after--h3">
+        I am not sure if this all of this was helpful, but hopefully it explains
+        thinking behind week numbers and why they can come in handy. If
+        anything, it helps me see the world as a bit more ordered and I have
+        found that the excuse of ‘next month’ is less reliable as we really only
+        have ‘next week’.
+      </p>
+      <p name="111d" id="111d" class="graf graf--p graf-after--p">
+        <strong class="markup--strong markup--p-strong">Further Reading</strong>
+      </p>
+      <p name="4c3e" id="4c3e" class="graf graf--p graf-after--p">
+        There is also another similar calendar, the
+        <a
+          href="http://infinitedimensions.org/devices/thellid_calendar/thellid_calendar.htm"
+          data-href="http://infinitedimensions.org/devices/thellid_calendar/thellid_calendar.htm"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          Thellid Calendar
+        </a>
+        , which approaches the year with weeks in mind and used as inspiration
+        for this post. The
+        <a
+          href="https://en.wikipedia.org/wiki/International_Fixed_Calendar"
+          data-href="https://en.wikipedia.org/wiki/International_Fixed_Calendar"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          International Fixed Calendar
+        </a>
+        is worth looking into and was used within Kodak for over 60 years, it
+        has more user-friendly month naming conventions and placements of the
+        ‘additional’ days in the year.
+      </p>
+      <p
+        name="d155"
+        id="d155"
+        class="graf graf--p graf-after--p graf--trailing">
+        Have fun, let me know if you find any other epic resources about weeks.
+      </p>
+    </div>
+  </div>
+  <aside>
+    <p>
+      Previously hosted on
+      <a
+        href="https://medium.com/@_lb_/arrest-this-man-he-talks-in-maths-629366551ee6">
+        Medium
+      </a>
+      exported on September 9, 2023.
+    </p>
+  </aside>
+</article>

@@ -1,0 +1,297 @@
+---
+permalink: "posts/thoughts-on-data-models-leading-towards-datomic-eade102edfec/"
+title: Thoughts on data models, leading towards Datomic
+description: A high level look at data models.
+date: 2016-04-03
+tags:
+  - data
+---
+
+<article aria-labelledby="post-title" class="h-entry">
+  <div class="section-content">
+    <div class="section-inner sectionLayout--insetColumn">
+      <p name="fadd" id="fadd" class="graf graf--p graf-after--h3">
+        Before we get started, this is a very high level view of data
+        structures, I am not a full time software developer just a person
+        passionate about information systems hoping to impart some thoughts.
+      </p>
+      <p name="e72e" id="e72e" class="graf graf--p graf-after--p">
+        Let’s design a data model for a CRM (Customer Relationship Management)
+        software.
+      </p>
+      <ul class="postList">
+        <li name="23a2" id="23a2" class="graf graf--li graf-after--p">
+          First we need people, so we add a table for people.
+        </li>
+        <li name="306a" id="306a" class="graf graf--li graf-after--li">
+          Second we need the companies those people work at, so we create a
+          table for companies, there should be a way to link people to companies
+          as contacts or something like that.
+        </li>
+        <li name="05e4" id="05e4" class="graf graf--li graf-after--li">
+          Third we need to log our calls to those people so we have a record of
+          when we called them and notes about the call.
+        </li>
+      </ul>
+      <p name="1006" id="1006" class="graf graf--p graf-after--li">
+        We will mock this up into a diagram first, that way we can get a feel
+        for the data before we go and build it.
+      </p>
+      <h3 name="1097" id="1097" class="graf graf--h3 graf-after--p">Tables</h3>
+      <figure name="6775" id="6775" class="graf graf--figure graf-after--h3">
+        <img
+          class="graf-image"
+          data-image-id="1*Guh-NMfBICYjLod1krdfew.png"
+          data-width="833"
+          data-height="397"
+          src="/img/posts/medium/1-Guh-NMfBICYjLod1krdfew.png" />
+        <figcaption class="imageCaption">Table Data Structure</figcaption>
+      </figure>
+      <p name="d585" id="d585" class="graf graf--p graf-after--figure">
+        Approaching this traditionally we went up with a design like above, I
+        studied this at uni and and when I think about this I default to a
+        relational table structure. It is nice to reason about, each table has
+        rows and each row is one thing, I often try to explain this notion to
+        people when they are building spreadsheets (the real data backbone of
+        any organisation). Relationships (connections) are not presented as
+        their own thing but merely another element inside a row, it is these
+        relationships (the context), that gives data better meaning.
+      </p>
+      <h4 name="8873" id="8873" class="graf graf--h4 graf-after--p">
+        Documents
+      </h4>
+      <p name="a429" id="a429" class="graf graf--p graf-after--h4">
+        I wanted to give documents an honorary mention, as they are a common
+        data structure and a more recent byproduct of the NOsql movement.
+        Documents makes sense and nested information that does not need
+        relationships (ie. no context needed outside of the document itself)
+        becomes massively easy compared to tables. However, in most cases
+        relationships to other documents become DIY and unless you are a
+        database builder is something that you should probably not want to or
+        have to manage.
+      </p>
+      <h3 name="d965" id="d965" class="graf graf--h3 graf-after--p">Graphs</h3>
+      <figure name="d5f9" id="d5f9" class="graf graf--figure graf-after--h3">
+        <img
+          class="graf-image"
+          data-image-id="1*YyXej0fN89jIXGzmbwzs6g.png"
+          data-width="839"
+          data-height="323"
+          src="/img/posts/medium/1-YyXej0fN89jIXGzmbwzs6g.png" />
+        <figcaption class="imageCaption">Graph Data Structure</figcaption>
+      </figure>
+      <p name="6191" id="6191" class="graf graf--p graf-after--figure">
+        I have an obsession with graph databases, I feel like the world makes
+        sense in graphs and think that graphs should really be called relational
+        databases but that name has already been taken. Graphs have entities
+        (aka nodes) that are much like a single row in a table or a single
+        document. Graphs also have edges (aka vertices) that form the connection
+        between the entities, but they are treated just as special as the
+        entities themselves. The freedom to model any data structure is
+        intoxicating, you can start with a whole bunch of disconnected nodes and
+        then as your information builds you can join them to each other any
+        which way. Some graph databases even let you store data on the edges
+        themselves and let you query them efficiently which is super exciting.
+        As you dig deeper into graph databases however you come up against
+        decisions about should things be attributes (think person/email)or
+        should they be joined nodes (think of email as its own node, joined via
+        an edge to a person). This immense flexibility can feel a little too
+        much and while graphs are beautiful, they can force decisions too early
+        on the data model.
+      </p>
+      <h3 name="ce12" id="ce12" class="graf graf--h3 graf-after--p">
+        RDF (Resource Description Framework)
+      </h3>
+      <figure name="d8c3" id="d8c3" class="graf graf--figure graf-after--h3">
+        <img
+          class="graf-image"
+          data-image-id="1*A_BOMzJVfDOixy4CMWi-FQ.png"
+          data-width="839"
+          data-height="323"
+          src="/img/posts/medium/1-A_BOMzJVfDOixy4CMWi-FQ.png" />
+        <figcaption class="imageCaption">RDF Data Structure</figcaption>
+      </figure>
+      <p name="341f" id="341f" class="graf graf--p graf-after--figure">
+        Beyond feeling a bit over engineered and lacking great commercial / open
+        source solutions the approach seems like a natural progression from
+        graphs. For those who have not read anything about RDFs (aka Triple
+        stores) think of a SQL database made ONLY of one table, one massive
+        table with just three fields (basic concept only).
+      </p>
+      <ul class="postList">
+        <li name="734c" id="734c" class="graf graf--li graf-after--p">
+          Subject: A reference to any other row in the table.
+        </li>
+        <li name="b4e1" id="b4e1" class="graf graf--li graf-after--li">
+          Predicate: A string, usually a verb.
+        </li>
+        <li name="1bf7" id="1bf7" class="graf graf--li graf-after--li">
+          Object: A value OR a reference to any other row in the table.
+        </li>
+      </ul>
+      <p name="6a40" id="6a40" class="graf graf--p graf-after--li">
+        From this we can structure anything, it is awesome! At first it feels a
+        bit verbose but it brings all data models down to their core elements,
+        like the atom of data. The person row presented at the top would
+        actually consist of multiple ‘triples’ where each one tells one part of
+        the person story, eg. [1, person/name, ‘John’], [1, person/email,
+        ‘email@mail.com’]
+      </p>
+      <p name="24f0" id="24f0" class="graf graf--p graf-after--p">
+        A relationship (or edge) is just a triple that connects to entities and
+        nested information are also just triples connected to a triple on the
+        parent entity.
+      </p>
+      <h3 name="8e8f" id="8e8f" class="graf graf--h3 graf-after--p">
+        Pause &amp; Reflect — when information changes
+      </h3>
+      <p name="46ea" id="46ea" class="graf graf--p graf-after--h3">
+        So for whatever reason we use one of the data structures above, it could
+        be that tables (SQL) is proven, works and open source projects abound so
+        we lock it in. We have been using the system now for six months and then
+        we get to a point where we want to ask our database:
+      </p>
+      <blockquote
+        name="1c3c"
+        id="1c3c"
+        class="graf graf--blockquote graf-after--p">
+        Dear database can you tell me when person 123’s email changed, what it
+        was and what it was changed to, ideally who made that change also.
+      </blockquote>
+      <p name="9232" id="9232" class="graf graf--p graf-after--blockquote">
+        For all of the options above, we are mostly stuck with a non-response
+        from our database, and Google will get some great responses that all
+        would have helped six months ago but not today. We can can add
+        timestamps, user add/update stamps and we can even split out emails to
+        their own row/nodes but all of these only help us after some sort of
+        implementation. Most likely we would then look at backups, logs or
+        requests to find out this information if it is worth the hassle or
+        trouble and as long as this is not a regular occurrence.
+      </p>
+      <p name="7f4e" id="7f4e" class="graf graf--p graf-after--p">
+        I personally feel that knowing the context of the when (the transaction)
+        is just as critical as knowing the context of data through their
+        relationships to other pieces of data. You may not need it on day one,
+        but you will need it — as someone who loves Google Docs, being able to
+        see all revisions to any document I have ever worked on is not required
+        all the time but when it is needed it is amazing to have it there.
+      </p>
+      <h3 name="3e79" id="3e79" class="graf graf--h3 graf-after--p">
+        Datomic aka Facts
+      </h3>
+      <figure name="a527" id="a527" class="graf graf--figure graf-after--h3">
+        <img
+          class="graf-image"
+          data-image-id="1*yCyo28mpJEMZ70Cv_JLNow.png"
+          data-width="839"
+          data-height="455"
+          src="/img/posts/medium/1-yCyo28mpJEMZ70Cv_JLNow.png" />
+      </figure>
+      <p name="a714" id="a714" class="graf graf--p graf-after--figure">
+        Datomic is very similar to RDF, but instead of triples we have items
+        that consist of four basic elements:
+      </p>
+      <ul class="postList">
+        <li name="cfc4" id="cfc4" class="graf graf--li graf-after--p">
+          Entity (like Subject)
+        </li>
+        <li name="ece4" id="ece4" class="graf graf--li graf-after--li">
+          Attribute (like predicate, but a nicer name IMO)
+        </li>
+        <li name="ffc0" id="ffc0" class="graf graf--li graf-after--li">
+          Value (like Object, can be an actual value or a reference to another
+          entity)
+        </li>
+        <li name="cd54" id="cd54" class="graf graf--li graf-after--li">
+          Transaction (a special reference to another entity which itself
+          contains facts about when, who, etc)
+        </li>
+      </ul>
+      <p name="885b" id="885b" class="graf graf--p graf-after--li">
+        This simple and single approach to the view of your data removes the
+        need to think so far in advance about everything you need. While
+        changing schema might be non-trivial it does not affect the overall
+        approach to the database structure. The future requests of the system do
+        not have to be predicted to be prepared for and the icing on the cake is
+        that this database is immutable, meaning that data put in is never
+        removed, any changes are just new facts added into the system.
+      </p>
+      <h3 name="bff4" id="bff4" class="graf graf--h3 graf-after--p">
+        Conclusion
+      </h3>
+      <p name="ebcd" id="ebcd" class="graf graf--p graf-after--h3">
+        Next time you are considering some database architecture, take a bit of
+        time to read about what else is out there. It might not mean you fork
+        out the coin for a Datomic license but it may help you think twice
+        before picking your previous default database system and schema.
+      </p>
+      <h3 name="5390" id="5390" class="graf graf--h3 graf-after--p">
+        Further Reading
+      </h3>
+      <ul class="postList">
+        <li name="7fa2" id="7fa2" class="graf graf--li graf-after--h3">
+          <a
+            href="http://docs.datomic.com/architecture.html"
+            data-href="http://docs.datomic.com/architecture.html"
+            class="markup--anchor markup--li-anchor"
+            rel="noopener"
+            target="_blank">
+            Datomic Architecture Overview (Datomic Developer Resources)
+          </a>
+        </li>
+        <li name="1d70" id="1d70" class="graf graf--li graf-after--li">
+          <a
+            href="http://www.flyingmachinestudios.com/programming/datomic-for-five-year-olds/"
+            data-href="http://www.flyingmachinestudios.com/programming/datomic-for-five-year-olds/"
+            class="markup--anchor markup--li-anchor"
+            rel="noopener"
+            target="_blank">
+            Datomic for Five Year Olds (2013)
+          </a>
+        </li>
+        <li name="7b71" id="7b71" class="graf graf--li graf-after--li">
+          <a
+            href="https://hashrocket.com/blog/posts/using-datomic-as-a-graph-database"
+            data-href="https://hashrocket.com/blog/posts/using-datomic-as-a-graph-database"
+            class="markup--anchor markup--li-anchor"
+            rel="noopener"
+            target="_blank">
+            Using Datomic as a Graph Database (2014)
+          </a>
+        </li>
+        <li name="17cd" id="17cd" class="graf graf--li graf-after--li">
+          <a
+            href="https://medium.com/@azolotko/installing-datomic-on-mac-os-x-7830eace11f3"
+            data-href="https://medium.com/@azolotko/installing-datomic-on-mac-os-x-7830eace11f3"
+            class="markup--anchor markup--li-anchor"
+            target="_blank">
+            Installing Datomic on Mac OS X (2015)
+          </a>
+        </li>
+        <li
+          name="271d"
+          id="271d"
+          class="graf graf--li graf-after--li graf--trailing">
+          <a
+            href="http://augustl.com/blog/2016/datomic_the_most_innovative_db_youve_never_heard_of/"
+            data-href="http://augustl.com/blog/2016/datomic_the_most_innovative_db_youve_never_heard_of/"
+            class="markup--anchor markup--li-anchor"
+            rel="noopener"
+            target="_blank">
+            Datomic: The most innovative DB you’ve never heard of (2016)
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <aside>
+    <p>
+      Previously hosted on
+      <a
+        href="https://medium.com/@_lb_/thoughts-on-data-models-leading-towards-datomic-eade102edfec">
+        Medium
+      </a>
+      exported on September 9, 2023.
+    </p>
+  </aside>
+</article>

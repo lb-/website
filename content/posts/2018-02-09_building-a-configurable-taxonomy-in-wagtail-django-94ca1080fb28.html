@@ -1,0 +1,872 @@
+---
+permalink: "posts/building-a-configurable-taxonomy-in-wagtail-django-94ca1080fb28/"
+title: Building a configurable taxonomy in Wagtail (Django)
+description: This article aims to present a way to implement a fully flexible taxonomy system inside your Django app.
+date: 2018-02-09
+tags:
+  - django
+  - python
+  - wagtail
+---
+
+<article aria-labelledby="post-title" class="h-entry">
+  <div class="section-content">
+    <div class="section-inner sectionLayout--insetColumn">
+      <figure name="5c61" id="5c61" class="graf graf--figure graf-after--h3">
+        <img
+          class="graf-image"
+          data-image-id="1*IMqslSY-1P11RllkvzFCwg.jpg"
+          data-width="2048"
+          data-height="1536"
+          data-is-featured="true"
+          src="/img/posts/medium/1-IMqslSY-1P11RllkvzFCwg.jpg" />
+        <figcaption class="imageCaption">
+          Brewing Methods Chart from
+          <a
+            href="https://www.rebelroasterscoffee.com.au/coffee-brewing-methods/"
+            data-href="https://www.rebelroasterscoffee.com.au/coffee-brewing-methods/"
+            class="markup--anchor markup--figure-anchor"
+            rel="noopener"
+            target="_blank">
+            Rebel Roasters Coffee
+          </a>
+           — Inspiration for our Taxonomy
+        </figcaption>
+      </figure>
+      <p name="a8f4" id="a8f4" class="graf graf--p graf-after--figure">
+        Updated 2018–02–17: Added brewing methods chart + screenshots of final
+        UI.
+      </p>
+      <p name="a76f" id="a76f" class="graf graf--p graf-after--p">
+        This article aims to present a way to implement a fully flexible
+        taxonomy system inside your Django app. The editing implementation will
+        rely heavily on the use of Wagtail (a CMS built on Django) but will
+        still be relevant if only Django is used. This is a repost from my
+        <a
+          href="https://www.codementor.io/lb0/harnessing-the-power-of-django-and-python-to-build-a-configurable-taxonomy-gi88j23vl"
+          data-href="https://www.codementor.io/lb0/harnessing-the-power-of-django-and-python-to-build-a-configurable-taxonomy-gi88j23vl"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          original article on Codementor
+        </a>
+        .
+      </p>
+      <h3 name="4a76" id="4a76" class="graf graf--h3 graf-after--p">
+        Business case
+      </h3>
+      <p name="2825" id="2825" class="graf graf--p graf-after--h3">
+        The case for a taxonomy can be broad — you may be developing a blog, are
+        bored, and really want a complicated way to tag posts. Alternatively,
+        you may be working with a knowledge management system and need to
+        provide a structured system to manage hierarchal categorization of your
+        team’s information.
+      </p>
+      <p name="21cb" id="21cb" class="graf graf--p graf-after--p">
+        Either way, it is important to understand your goals before writing a
+        single line of code. Or at least write some code, get frustrated, and
+        then come back to think about what you are trying to do.
+      </p>
+      <h3 name="baea" id="baea" class="graf graf--h3 graf-after--p">Goals</h3>
+      <ul class="postList">
+        <li name="63cc" id="63cc" class="graf graf--li graf-after--h3">
+          Build a flexible system to manage a nested (tree shaped) taxonomy.
+        </li>
+        <li name="5833" id="5833" class="graf graf--li graf-after--li">
+          We must be able to go arbitrarily deep.
+        </li>
+        <li name="4b71" id="4b71" class="graf graf--li graf-after--li">
+          We must be able to add the canonical (correct) terms but also have
+          space to provide and search via the non-correct terms (such as
+          abbreviations).
+        </li>
+        <li name="441e" id="441e" class="graf graf--li graf-after--li">
+          We need to minimize dependencies and stay as close to Django
+          conventions as possible (for future maintainability).
+        </li>
+        <li name="af3b" id="af3b" class="graf graf--li graf-after--li">
+          Avoid any difficult to understand terms in the user interface (e.g.
+          taxonomy).
+        </li>
+      </ul>
+      <h3 name="129f" id="129f" class="graf graf--h3 graf-after--li">
+        What is a business taxonomy?
+      </h3>
+      <p name="649e" id="649e" class="graf graf--p graf-after--h3">
+        Glad you asked! Think of a taxonomy as a globally shared vocabulary for
+        the business or organization. This vocabulary is often used throughout
+        all documentation, categorization, and training, but never really
+        written down in one place.
+      </p>
+      <p name="a5c6" id="a5c6" class="graf graf--p graf-after--p">
+        Taxonomies help organize content and knowledge into hierarchical
+        relationships, adding detail to terms and concepts the further you go
+        down the levels.
+      </p>
+      <p name="ffb7" id="ffb7" class="graf graf--p graf-after--p">
+        These two links add a bit more context:
+      </p>
+      <ul class="postList">
+        <li name="edf9" id="edf9" class="graf graf--li graf-after--p">
+          <a
+            href="https://en.wikipedia.org/wiki/Corporate_taxonomy"
+            data-href="https://en.wikipedia.org/wiki/Corporate_taxonomy"
+            class="markup--anchor markup--li-anchor"
+            rel="nofollow noopener"
+            target="_blank">
+            https://en.wikipedia.org/wiki/Corporate_taxonomy
+          </a>
+        </li>
+        <li name="2b51" id="2b51" class="graf graf--li graf-after--li">
+          <a
+            href="http://www.dpci.com/insights/taxonomy-vs-metadata"
+            data-href="http://www.dpci.com/insights/taxonomy-vs-metadata"
+            class="markup--anchor markup--li-anchor"
+            rel="nofollow noopener"
+            target="_blank">
+            http://www.dpci.com/insights/taxonomy-vs-metadata
+          </a>
+        </li>
+      </ul>
+      <h3 name="122a" id="122a" class="graf graf--h3 graf-after--li">
+        Wearing the right hat
+      </h3>
+      <p name="7fb7" id="7fb7" class="graf graf--p graf-after--h3">
+        When I worked on a similar project for a client, one thing I found hard
+        was switching between the
+        <a
+          href="https://github.com/wagtail/wagtail/wiki/The-Zen-of-Wagtail#always-wear-the-right-hat"
+          data-href="https://github.com/wagtail/wagtail/wiki/The-Zen-of-Wagtail#always-wear-the-right-hat"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          right hats
+        </a>
+        .
+      </p>
+      <p name="b43d" id="b43d" class="graf graf--p graf-after--p">
+        One hat was the business analyst, a.k.a, the guy who needs to translate
+        what the boss has asked for. With this hat on, I found that there were
+        legitimate concerns over how the company’s information could be managed,
+        searchable, and categorized to help add value to the organization as a
+        whole.
+      </p>
+      <p name="61b9" id="61b9" class="graf graf--p graf-after--p">
+        The next hat was that of the developer. Here, I had to work with
+        existing code and frameworks to implement a complex solution quickly and
+        simply, along with consideration for future development wherever
+        possible.
+      </p>
+      <p name="5e8c" id="5e8c" class="graf graf--p graf-after--p">
+        Finally, the hat that matters in the long run — the one of the everyday
+        user. It was this hat I often found the hardest to don after wearing the
+        others for a long time.
+      </p>
+      <p name="74e6" id="74e6" class="graf graf--p graf-after--p">
+        The concepts, both abstract and data model side, made sense to me and it
+        felt like everyone else would get on board easily. In reality, I had to
+        remember that I had been thinking and brainstorming this project for a
+        long time and had the chance to really internalize the goals and way to
+        think.
+      </p>
+      <p name="ea67" id="ea67" class="graf graf--p graf-after--p">
+        In the end, we landed on a great single sentence that helped our end
+        users grok the concept of our ‘taxonomy’. We also ditched the name
+        taxonomy all together and used a more friendly internally relevant
+        terminology instead.
+      </p>
+      <h3 name="2a9d" id="2a9d" class="graf graf--h3 graf-after--p">
+        Prerequisites
+      </h3>
+      <p name="367d" id="367d" class="graf graf--p graf-after--h3">
+        Installation of
+        <a
+          href="http://docs.wagtail.io/en/latest/getting_started/index.html"
+          data-href="http://docs.wagtail.io/en/latest/getting_started/index.html"
+          class="markup--anchor markup--p-anchor"
+          rel="nofollow noopener"
+          target="_blank">
+          Wagtail 2.0
+        </a>
+        . As of publication, this is still a release candidate but is solid
+        enough to use.
+      </p>
+      <p name="44cd" id="44cd" class="graf graf--p graf-after--p">
+        We will be using
+        <a
+          href="https://docs.djangoproject.com/en/2.0/releases/2.0/"
+          data-href="https://docs.djangoproject.com/en/2.0/releases/2.0/"
+          class="markup--anchor markup--p-anchor"
+          rel="nofollow noopener"
+          target="_blank">
+          Django 2.0
+        </a>
+        and all Python 3.5+ syntax (because it is awesome!).
+      </p>
+      <p name="a5a5" id="a5a5" class="graf graf--p graf-after--p">
+        Finally, we will be taking advantage of an incredible Python project
+        called
+        <a
+          href="http://django-treebeard.readthedocs.io/en/stable/"
+          data-href="http://django-treebeard.readthedocs.io/en/stable/"
+          class="markup--anchor markup--p-anchor"
+          rel="nofollow noopener"
+          target="_blank">
+          django-treebeard
+        </a>
+        . I first found out about this project in depth after working with
+        Wagtail for a while.
+      </p>
+      <p name="1943" id="1943" class="graf graf--p graf-after--p">
+        Essentially, this library takes all of the heavy lifting of managing a
+        nested tree model inside a standard relational database. It is projects
+        like this that get me excited about the power of Python and also the way
+        Django can be extended. Shout out to
+        <a
+          href="https://twitter.com/tabo"
+          data-href="https://twitter.com/tabo"
+          class="markup--anchor markup--p-anchor"
+          rel="nofollow noopener"
+          target="_blank">
+          @tabo
+        </a>
+        for this epic project.
+      </p>
+      <p name="d584" id="d584" class="graf graf--p graf-after--p">
+        Note: If you have Wagtail up and running, you will not need to install
+        django-treebeard. For a raw Django project, you will need to install the
+        package.
+      </p>
+      <h3 name="bd60" id="bd60" class="graf graf--h3 graf-after--p">
+        Code walkthrough
+      </h3>
+      <h4 name="4aa5" id="4aa5" class="graf graf--h4 graf-after--h3">
+        1 — the ‘Node’ model
+      </h4>
+      <p name="67e8" id="67e8" class="graf graf--p graf-after--h4">
+        Naming this is hard. For now, we will just call our elements inside the
+        taxonomy a ‘node’. Our nodes will extend the django-treebeard project’s
+        <a
+          href="http://django-treebeard.readthedocs.io/en/stable/mp_tree.html"
+          data-href="http://django-treebeard.readthedocs.io/en/stable/mp_tree.html"
+          class="markup--anchor markup--p-anchor"
+          rel="nofollow noopener"
+          target="_blank">
+          Materialized Path Tree nodes
+        </a>
+        , described as follows:
+      </p>
+      <ul class="postList">
+        <li name="e5e8" id="e5e8" class="graf graf--li graf-after--p">
+          Each node has one single path in the tree (think URL paths).
+        </li>
+        <li name="4c3c" id="4c3c" class="graf graf--li graf-after--li">
+          There must be one single root node that all other nodes connect to.
+        </li>
+        <li name="50f8" id="50f8" class="graf graf--li graf-after--li">
+          Nodes can be ordered in relation to their siblings. Initially, we will
+          just order them by their name, the field.
+        </li>
+        <li name="a1b1" id="a1b1" class="graf graf--li graf-after--li">
+          Nodes have a
+          <code class="markup--code markup--li-code">path</code>
+          ,
+          <code class="markup--code markup--li-code">depth</code>
+          , and
+          <code class="markup--code markup--li-code">numchild</code>
+          field whose values should not be changed directly.
+        </li>
+        <li name="f800" id="f800" class="graf graf--li graf-after--li">
+          The default set up can have a depth of 63, which I am sure will be
+          sufficient for our use case.
+        </li>
+      </ul>
+      <p name="d5be" id="d5be" class="graf graf--p graf-after--li">
+        We will be adding our own fields to the
+        <code class="markup--code markup--p-code">Node</code>
+        model:
+      </p>
+      <ul class="postList">
+        <li name="ad95" id="ad95" class="graf graf--li graf-after--p">
+          <code class="markup--code markup--li-code">name</code>
+          - a CharField that represents the canonical name of the Node.
+        </li>
+        <li name="8176" id="8176" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">aliases</code>
+          - a TextField where each line represents another potential name or
+          abbreviation for the Node.
+        </li>
+        <li name="300b" id="300b" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">node_order_index</code>
+          - an IntegerField which can be used in the future if we want to
+          implement custom ordering in the user interface.
+        </li>
+      </ul>
+      <p name="5676" id="5676" class="graf graf--p graf-after--li">
+        Here is our initial model definition for the
+        <code class="markup--code markup--p-code">Node</code>
+        model:
+      </p>
+      <figure
+        name="4dab"
+        id="4dab"
+        class="graf graf--figure graf--iframe graf-after--p">
+        <script src="https://gist.github.com/706d262788b7817624253d33390cc4ee.js"></script>
+      </figure>
+      <p name="cd75" id="cd75" class="graf graf--p graf-after--figure">
+        After you have this model declared, you will want to run migrations in
+        your console:
+      </p>
+      <ul class="postList">
+        <li name="cb6c" id="cb6c" class="graf graf--li graf-after--p">
+          <code class="markup--code markup--li-code">
+            $ python3 ./manage.py makemigrations
+          </code>
+        </li>
+        <li name="bfa9" id="bfa9" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">
+            $ python3 ./manage.py migrate
+          </code>
+        </li>
+      </ul>
+      <h4 name="7ece" id="7ece" class="graf graf--h4 graf-after--li">
+        2 — The form
+      </h4>
+      <p name="9c6d" id="9c6d" class="graf graf--p graf-after--h4">
+        For the sake of simplicity, we will assume all of the code will go in
+        the same
+        <code class="markup--code markup--p-code">models.py</code>
+        file. In practice, you would be best served splitting up into separate
+        files, but it is easier to get up and running with everything in one
+        place.
+      </p>
+      <p name="8a37" id="8a37" class="graf graf--p graf-after--p">
+        We will be using the Wagtail system of building forms, but you can apply
+        the main
+        <code class="markup--code markup--p-code">__init__</code>
+        and
+        <code class="markup--code markup--p-code">__save__</code>
+        overrides to any Django form or even Django modeladmin.
+      </p>
+      <p name="9913" id="9913" class="graf graf--p graf-after--p">
+        Key items to note:
+      </p>
+      <ul class="postList">
+        <li name="3ebc" id="3ebc" class="graf graf--li graf-after--p">
+          The
+          <a
+            href="http://django-treebeard.readthedocs.io/en/stable/api.html"
+            data-href="http://django-treebeard.readthedocs.io/en/stable/api.html"
+            class="markup--anchor markup--li-anchor"
+            rel="nofollow noopener"
+            target="_blank">
+            djang-treebeard node API reference
+          </a>
+          will come in handy here, we will be using methods like
+          <code class="markup--code markup--li-code">get_depth</code>
+          and
+          <code class="markup--code markup--li-code">is_root</code>
+          from this API.
+        </li>
+        <li name="a5fc" id="a5fc" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">parent</code>
+          is a field that provides a user interface to select the parent of the
+          node being edited (or created). We have extended the
+          <code class="markup--code markup--li-code">
+            <a
+              href="https://docs.djangoproject.com/en/2.0/ref/forms/fields/#modelchoicefield"
+              data-href="https://docs.djangoproject.com/en/2.0/ref/forms/fields/#modelchoicefield"
+              class="markup--anchor markup--li-anchor"
+              rel="nofollow noopener"
+              target="_blank">
+              ModelChoiceField
+            </a>
+          </code>
+          class to create a custom
+          <code class="markup--code markup--li-code">BasicNodeChoiceField</code>
+          where we can get a nice indication of the Node structure in our select
+          box.
+        </li>
+        <li name="b98d" id="b98d" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">__init__</code>
+          on our form has been modified to do a few things.
+        </li>
+        <li name="4e47" id="4e47" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">instance</code>
+          will be an instance of Node bound to the values provided when the form
+          submits, when creating or editing a Node.
+        </li>
+        <li name="0390" id="0390" class="graf graf--li graf-after--li">
+          If we are editing the root node (
+          <code class="markup--code markup--li-code">instance.is_root()</code>
+          ) or creating the first node (
+          <code class="markup--code markup--li-code">
+            Node.objects.count() is 0
+          </code>
+          ) we want to ensure that the
+          <code class="markup--code markup--li-code">parent</code>
+          field is hidden and will not throw an error if not filled out.
+        </li>
+        <li name="3eaa" id="3eaa" class="graf graf--li graf-after--li">
+          If we are editing an existing node we want to pre-select the node’s
+          parent via
+          <code class="markup--code markup--li-code">get_parent()</code>
+          .
+        </li>
+        <li name="3435" id="3435" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">save</code>
+          needs to be changed to work with the
+          <code class="markup--code markup--li-code">django-treebeard</code>
+          API, as we cannot just create or move Nodes directly.
+        </li>
+        <li name="b671" id="b671" class="graf graf--li graf-after--li">
+          First, we get the Node
+          <code class="markup--code markup--li-code">instance</code>
+          that is attempting to be saved, then we get the value of
+          <code class="markup--code markup--li-code">parent</code>
+          submitted with the form (which will be None for the root Node).
+        </li>
+        <li name="5b54" id="5b54" class="graf graf--li graf-after--li">
+          If we are not committing changes on this save call, we can simply
+          return the instance provided.
+        </li>
+        <li name="46b3" id="46b3" class="graf graf--li graf-after--li">
+          Otherwise, we want to handle the following cases:
+        </li>
+        <li name="ea0d" id="ea0d" class="graf graf--li graf-after--li">
+          Creating the first Node, which will become the root Node, handled by
+          the classmethod
+          <code class="markup--code markup--li-code">add_root</code>
+          .
+        </li>
+        <li name="32e4" id="32e4" class="graf graf--li graf-after--li">
+          Creating a Node, but not the root Node, which must be placed as a
+          child under an existing parent Node via
+          <code class="markup--code markup--li-code">add_child</code>
+          on the parent node.
+        </li>
+        <li name="44a7" id="44a7" class="graf graf--li graf-after--li">
+          Making non-parent changes to any Node is handled by the normal
+          <code class="markup--code markup--li-code">save</code>
+          method.
+        </li>
+        <li name="52f5" id="52f5" class="graf graf--li graf-after--li">
+          Moving an existing node to a new location under a different parent
+          Node, handled by
+          <code class="markup--code markup--li-code">
+            move(parent, pos=&#39;sorted-child&#39;)
+          </code>
+          .
+        </li>
+        <li name="fe50" id="fe50" class="graf graf--li graf-after--li">
+          Finally, we tell Wagtail to use this form class when editing the Node
+          model via
+          <code class="markup--code markup--li-code">
+            Node.base_form_class = NodeForm
+          </code>
+          .
+        </li>
+      </ul>
+      <figure
+        name="3d78"
+        id="3d78"
+        class="graf graf--figure graf--iframe graf-after--li">
+        <script src="https://gist.github.com/8169ac5dcd1d749a8dd9378942643bc0.js"></script>
+      </figure>
+      <h4 name="3a71" id="3a71" class="graf graf--h4 graf-after--figure">
+        3 — Wagtail modeladmin editing
+      </h4>
+      <p name="bc59" id="bc59" class="graf graf--p graf-after--h4">
+        We will now use the
+        <a
+          href="http://docs.wagtail.io/en/latest/reference/contrib/modeladmin/index.html"
+          data-href="http://docs.wagtail.io/en/latest/reference/contrib/modeladmin/index.html"
+          class="markup--anchor markup--p-anchor"
+          rel="nofollow noopener"
+          target="_blank">
+          Wagtail modeladmin
+        </a>
+        module. This is a powerful way to add CRUD operations to our models in
+        the admin interface. It is similar (in concept) to Django’s modeladmin,
+        but not the same. It also makes extensive use of the awesome
+        <a
+          href="https://docs.djangoproject.com/en/2.0/topics/class-based-views/"
+          data-href="https://docs.djangoproject.com/en/2.0/topics/class-based-views/"
+          class="markup--anchor markup--p-anchor"
+          rel="nofollow noopener"
+          target="_blank">
+          Class-based views
+        </a>
+        .
+      </p>
+      <p name="2ede" id="2ede" class="graf graf--p graf-after--p">
+        Note: The Class-based views provide a great way to add functionality to
+        Django without reinventing the wheel. They are easy to customize and
+        provide a great API that is easy to extend and gives you a great example
+        of a structure for view classes.
+      </p>
+      <p name="a85e" id="a85e" class="graf graf--p graf-after--p">
+        We will be declaring a new class that will extend
+        <code class="markup--code markup--p-code">ModelAdmin</code>
+        :
+      </p>
+      <ul class="postList">
+        <li name="d6e1" id="d6e1" class="graf graf--li graf-after--p">
+          <code class="markup--code markup--li-code">model</code>
+          is set to our
+          <code class="markup--code markup--li-code">Node</code>
+          model class.
+        </li>
+        <li name="1b6d" id="1b6d" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">list_display</code>
+          has our
+          <code class="markup--code markup--li-code">name</code>
+          and
+          <code class="markup--code markup--li-code">alias</code>
+          field, along with a method available on the
+          <code class="markup--code markup--li-code">MP_Node</code>
+          class
+          <code class="markup--code markup--li-code">get_parent</code>
+          .
+        </li>
+        <li name="17fd" id="17fd" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">inspect_view_enabled</code>
+          means that the users can click on a simple view page to look at
+          details but not edit anything on the Node.
+        </li>
+      </ul>
+      <figure
+        name="0ad2"
+        id="0ad2"
+        class="graf graf--figure graf--iframe graf-after--li">
+        <script src="https://gist.github.com/ee3c9b8ba82e12807f21f5751b84768e.js"></script>
+      </figure>
+      <p name="d608" id="d608" class="graf graf--p graf-after--figure">
+        We will then register our custom
+        <code class="markup--code markup--p-code">ModelAdmin</code>
+        in a new file called
+        <code class="markup--code markup--p-code">
+          <a
+            href="http://docs.wagtail.io/en/latest/reference/hooks.html#hooks"
+            data-href="http://docs.wagtail.io/en/latest/reference/hooks.html#hooks"
+            class="markup--anchor markup--p-anchor"
+            rel="nofollow noopener"
+            target="_blank">
+            wagtail_hooks.py
+          </a>
+        </code>
+        . This is a special file name convention that Wagtail will ensure runs
+        before the admin interface is prepared.
+      </p>
+      <figure
+        name="c65d"
+        id="c65d"
+        class="graf graf--figure graf--iframe graf-after--p">
+        <script src="https://gist.github.com/7d652a43d266275ec8141f0b023d411c.js"></script>
+      </figure>
+      <h4 name="524c" id="524c" class="graf graf--h4 graf-after--figure">
+        4 — Node model enhancements
+      </h4>
+      <p name="b002" id="b002" class="graf graf--p graf-after--h4">
+        For round two of our model definition, we will add some nice helper
+        methods to be used later.
+      </p>
+      <ul class="postList">
+        <li name="96fb" id="96fb" class="graf graf--li graf-after--p">
+          <code class="markup--code markup--li-code">Node</code>
+          now also extends
+          <code class="markup--code markup--li-code">index.Indexed</code>
+           — this provides the ability for this model to be
+          <a
+            href="http://docs.wagtail.io/en/latest/topics/search/indexing.html#indexing-custom-models"
+            data-href="http://docs.wagtail.io/en/latest/topics/search/indexing.html#indexing-custom-models"
+            class="markup--anchor markup--li-anchor"
+            rel="nofollow noopener"
+            target="_blank">
+            indexed for searching
+          </a>
+          . See also the
+          <code class="markup--code markup--li-code">search_fields</code>
+          definition on the model for the fields we have added to the index.
+        </li>
+        <li name="30a9" id="30a9" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">
+            get_as_listing_header
+          </code>
+          is a method that renders a custom template that shows off the
+          &#39;depth&#39; of our Nodes. We also set the
+          <code class="markup--code markup--li-code">short_description</code>
+          and
+          <code class="markup--code markup--li-code">admin_order_field</code>
+          attributes on this method, used by
+          <code class="markup--code markup--li-code">modeladmin</code>
+          to show a nice column header.
+        </li>
+        <li name="b270" id="b270" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">get_parent</code>
+          is just the same method provided by
+          <code class="markup--code markup--li-code">MP_node</code>
+          . However, we need to re-declare it on the model to set the
+          <code class="markup--code markup--li-code">short_description</code>
+          used by
+          <code class="markup--code markup--li-code">modeladmin</code>
+          .
+        </li>
+        <li name="f977" id="f977" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">delete</code>
+          method is overridden to block the deletion of the root Node. This is
+          really important — if it is deleted, the node tree will be corrupted
+          and chaos will enter the ancient forest.
+        </li>
+        <li name="571a" id="571a" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">__str__</code>
+          magic method is used to show a nice string representation of our
+          Nodes.
+        </li>
+        <li name="2b64" id="2b64" class="graf graf--li graf-after--li">
+          Finally, we have decided that
+          <code class="markup--code markup--li-code">Node</code>
+          is not a friendly name for our team. We have elected to use
+          <code class="markup--code markup--li-code">Topic</code>
+          instead.
+          <code class="markup--code markup--li-code">modeladmin</code>
+          will also honor this reference and automatically use it in the admin
+          interface.
+        </li>
+      </ul>
+      <figure
+        name="8a61"
+        id="8a61"
+        class="graf graf--figure graf--iframe graf-after--li">
+        <script src="https://gist.github.com/2e0db25f76353cfcc0dd00510c10e4c3.js"></script>
+      </figure>
+      <p name="8be2" id="8be2" class="graf graf--p graf-after--figure">
+        Here is the template used by our
+        <code class="markup--code markup--p-code">get_as_listing_header</code>
+        method.
+      </p>
+      <figure
+        name="56fa"
+        id="56fa"
+        class="graf graf--figure graf--iframe graf-after--p">
+        <script src="https://gist.github.com/da983107e9f0721f8d619836d38f865d.js"></script>
+      </figure>
+      <p name="38c3" id="38c3" class="graf graf--p graf-after--figure">
+        Then we need to update the definition of our
+        <code class="markup--code markup--p-code">NodeAdmin</code>
+        to take advantage of our pretty
+        <code class="markup--code markup--p-code">get_as_listing_header</code>
+        method.
+      </p>
+      <figure
+        name="a25d"
+        id="a25d"
+        class="graf graf--figure graf--iframe graf-after--p">
+        <script src="https://gist.github.com/0ff112c1cd24008ff5297508d77768ef.js"></script>
+      </figure>
+      <h4 name="b95e" id="b95e" class="graf graf--h4 graf-after--figure">
+        5 — Finishing up
+      </h4>
+      <p name="2805" id="2805" class="graf graf--p graf-after--h4">
+        We can now add a relation to our Nodes on any of our other models, where
+        appropriate.
+      </p>
+      <p name="b3b8" id="b3b8" class="graf graf--p graf-after--p">
+        We can add a many-to-one relationship using
+        <a
+          href="https://docs.djangoproject.com/en/2.0/ref/models/fields/#django.db.models.ForeignKey"
+          data-href="https://docs.djangoproject.com/en/2.0/ref/models/fields/#django.db.models.ForeignKey"
+          class="markup--anchor markup--p-anchor"
+          rel="nofollow noopener"
+          target="_blank">
+          ForeignKey
+        </a>
+        .
+      </p>
+      <figure
+        name="5824"
+        id="5824"
+        class="graf graf--figure graf--iframe graf-after--p">
+        <script src="https://gist.github.com/fbd61fc9cc4a5dcd547fac304d7bd3c6.js"></script>
+      </figure>
+      <p name="80b6" id="80b6" class="graf graf--p graf-after--figure">
+        We can add a many-to-many relationship using
+        <a
+          href="https://docs.djangoproject.com/en/2.0/ref/models/fields/#manytomanyfield"
+          data-href="https://docs.djangoproject.com/en/2.0/ref/models/fields/#manytomanyfield"
+          class="markup--anchor markup--p-anchor"
+          rel="nofollow noopener"
+          target="_blank">
+          ManyToManyField
+        </a>
+        .
+      </p>
+      <figure
+        name="2523"
+        id="2523"
+        class="graf graf--figure graf--iframe graf-after--p">
+        <script src="https://gist.github.com/c080da660b90fe1ce2466cfbfa700b11.js"></script>
+      </figure>
+      <p name="9940" id="9940" class="graf graf--p graf-after--figure">
+        We now have an interface to manage our taxonomy, along with a way to
+        link the nodes to any other model within Django.
+      </p>
+      <h3 name="5a35" id="5a35" class="graf graf--h3 graf-after--p">
+        Bonus points — Adding icing on the root Node
+      </h3>
+      <h4 name="492a" id="492a" class="graf graf--h4 graf-after--h3">
+        Hide delete button on root Node
+      </h4>
+      <p name="cfe9" id="cfe9" class="graf graf--p graf-after--h4">
+        It is nice to not show buttons that users are not meant to use.
+        Thankfully,
+        <code class="markup--code markup--p-code">modeladmin</code>
+        makes it easy to override how the buttons for each row are generated.
+      </p>
+      <figure
+        name="61cf"
+        id="61cf"
+        class="graf graf--figure graf--iframe graf-after--p">
+        <script src="https://gist.github.com/728b3baf8b81eaf7723084c29cafa9c9.js"></script>
+      </figure>
+      <h4 name="a01c" id="a01c" class="graf graf--h4 graf-after--figure">
+        Add button to quickly add a child node
+      </h4>
+      <p name="31bb" id="31bb" class="graf graf--p graf-after--h4">
+        This is a bit more involved, but worth it to understand how to work with
+        class-based views and modeladmin in depth.
+      </p>
+      <p name="4b6a" id="4b6a" class="graf graf--p graf-after--p">
+        Walkthrough:
+      </p>
+      <ul class="postList">
+        <li name="87bf" id="87bf" class="graf graf--li graf-after--p">
+          <code class="markup--code markup--li-code">NodeButtonHelper</code>
+          has a few changes to essentially create and insert a new button,
+          <code class="markup--code markup--li-code">add_child_button</code>
+          , which will provide a simple way to pre-fill the parent field on a
+          create Node view.
+        </li>
+        <li name="15cd" id="15cd" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">
+            AddChildNodeViewClass
+          </code>
+          extends the
+          <code class="markup--code markup--li-code">CreateView</code>
+          class. Here, we do a few things:
+        </li>
+        <li name="0880" id="0880" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">__init__</code>
+          gets the pk (primary key) from the request and checks it is valid via
+          the prepared queryset and
+          <code class="markup--code markup--li-code">get_object_or_404</code>
+          .
+        </li>
+        <li name="b90f" id="b90f" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">get_page_title</code>
+          gives the user a nicer title on the create page, relevant to the
+          parent they selected.
+        </li>
+        <li name="72f0" id="72f0" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">get_initial</code>
+          sets the initial values for our
+          <code class="markup--code markup--li-code">NodeForm</code>
+          . No changes are needed to
+          <code class="markup--code markup--li-code">NodeForm</code>
+          for this to work.
+        </li>
+        <li name="32eb" id="32eb" class="graf graf--li graf-after--li">
+          Inside our
+          <code class="markup--code markup--li-code">NodeAdmin</code>
+          , we override two methods:
+        </li>
+        <li name="b585" id="b585" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">add_child_view</code>
+           — this gives the modeladmin module a reference to a view to assign to
+          the relevant URL.
+        </li>
+        <li name="6adb" id="6adb" class="graf graf--li graf-after--li">
+          <code class="markup--code markup--li-code">
+            get_admin_urls_for_registration
+          </code>
+           — this adds our new URL for the above view to the registration
+          process (Wagtail admin requires all admin URL patterns to be
+          registered a specific way).
+        </li>
+      </ul>
+      <figure
+        name="1a18"
+        id="1a18"
+        class="graf graf--figure graf--iframe graf-after--li">
+        <script src="https://gist.github.com/8b9694864caf064fd774ce6ce65e5c53.js"></script>
+      </figure>
+      <h3 name="cea4" id="cea4" class="graf graf--h3 graf-after--figure">
+        In closing
+      </h3>
+      <p name="dfc5" id="dfc5" class="graf graf--p graf-after--h3">
+        I really hope this has been helpful from both the technical and
+        ‘thinking it through’ perspective.
+      </p>
+      <p name="f89d" id="f89d" class="graf graf--p graf-after--p">
+        There is a lot of room for improvement in this implementation, but this
+        is a solid starting point. From here, you can build your own amazing
+        taxonomy systems in every application… that needs it.
+      </p>
+      <p name="d158" id="d158" class="graf graf--p graf-after--p">
+        You can view the full
+        <code class="markup--code markup--p-code">
+          <a
+            href="https://gist.github.com/lb-/fda43b343cbf24c44c2c74ec69f2eafd#file-final_models-py"
+            data-href="https://gist.github.com/lb-/fda43b343cbf24c44c2c74ec69f2eafd#file-final_models-py"
+            class="markup--anchor markup--p-anchor"
+            rel="noopener"
+            target="_blank">
+            models.py
+          </a>
+        </code>
+        <a
+          href="https://gist.github.com/lb-/fda43b343cbf24c44c2c74ec69f2eafd#file-final_models-py"
+          data-href="https://gist.github.com/lb-/fda43b343cbf24c44c2c74ec69f2eafd#file-final_models-py"
+          class="markup--anchor markup--p-anchor"
+          rel="noopener"
+          target="_blank">
+          file on a GitHub gist
+        </a>
+        . There are a few minor additions and tweaks based on the project I
+        based this blog on.
+      </p>
+      <p name="9af2" id="9af2" class="graf graf--p graf-after--p">
+        In my working example I fleshed out the Coffee brewing methods, if we
+        think of each coffee ‘drink’ as the entity that contains links to how it
+        was brewed, we end up with a fun taxonomy example. Below are a few
+        screenshots of how this would look in Wagtail.
+      </p>
+    </div>
+    <div class="section-inner sectionLayout--fullWidth">
+      <figure
+        name="e4f1"
+        id="e4f1"
+        class="graf graf--figure graf--layoutFillWidth graf-after--p graf--trailing">
+        <img
+          class="graf-image"
+          data-image-id="1*UVAiNgvwwvhvgaUQm4Vx3A.png"
+          data-width="2500"
+          data-height="711"
+          src="/img/posts/medium/1-UVAiNgvwwvhvgaUQm4Vx3A.png" />
+        <figcaption class="imageCaption">
+          Screenshots from Wagtail’s admin — interacting with our new Topics.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+  <aside>
+    <p>
+      Previously hosted on
+      <a
+        href="https://medium.com/@_lb_/building-a-configurable-taxonomy-in-wagtail-django-94ca1080fb28">
+        Medium
+      </a>
+      exported on September 9, 2023.
+    </p>
+  </aside>
+</article>

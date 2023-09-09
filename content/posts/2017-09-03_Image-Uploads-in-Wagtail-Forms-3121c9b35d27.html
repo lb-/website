@@ -1,0 +1,554 @@
+---
+permalink: "posts/image-uploads-in-wagtail-forms-3121c9b35d27/"
+title: Image Uploads in Wagtail Forms (old)
+description: For developers using the Wagtail CMS who want to add image upload fields.
+date: 2017-09-03
+tags:
+  - django
+  - python
+  - wagtail
+---
+
+<article aria-labelledby="post-title" class="h-entry">
+  <div class="section-inner sectionLayout--insetColumn">
+    <p name="d024" id="d024" class="graf graf--p graf--leading">
+      <strong class="markup--strong markup--p-strong">
+        Original Post — Wagtail 1.12
+      </strong>
+    </p>
+    <p name="9a9e" id="9a9e" class="graf graf--p graf-after--p">
+      <strong class="markup--strong markup--p-strong">The Problem </strong>
+      — Your team are loving the custom form builder in Wagtail CMS and want to
+      let people submit an image along with the form.
+    </p>
+    <p name="1f7d" id="1f7d" class="graf graf--p graf-after--p">
+      <strong class="markup--strong markup--p-strong">The Solution </strong>
+      — Define a new form field type that is selectable when editing fields in
+      the CMS Admin, this field type will be called ‘Upload Image’. This field
+      should show up in the view as a normal upload field with restrictions on
+      file type and size, just like the Wagtail Images system.
+    </p>
+    <figure name="6806" id="6806" class="graf graf--figure graf-after--p">
+      <img
+        class="graf-image"
+        data-image-id="1*c_A4ACR6tCr-HLldBQGCnA.png"
+        data-width="1429"
+        data-height="628"
+        data-is-featured="true"
+        src="/img/posts/medium/1-c_A4ACR6tCr-HLldBQGCnA.png" />
+      <figcaption class="imageCaption">
+        Note the Field Type: ‘Upload Image’ — that is what we want to build.
+      </figcaption>
+    </figure>
+    <figure name="2c9a" id="2c9a" class="graf graf--figure graf-after--figure">
+      <img
+        class="graf-image"
+        data-image-id="1*hTh0YBYUSg6GCGD-wNsv4A.png"
+        data-width="1293"
+        data-height="642"
+        src="/img/posts/medium/1-hTh0YBYUSg6GCGD-wNsv4A.png" />
+      <figcaption class="imageCaption">
+        Goal: When you add an ‘Upload Image’ field, it will show up on the form
+        view for you.
+      </figcaption>
+    </figure>
+    <h3 name="963e" id="963e" class="graf graf--h3 graf-after--figure">
+      Wagtail, Images and Forms?
+    </h3>
+    <p name="4fa2" id="4fa2" class="graf graf--p graf-after--h3">
+      Skip ahead if you know the basics here.
+    </p>
+    <p name="d86d" id="d86d" class="graf graf--p graf-after--p">
+      <a
+        href="https://wagtail.io/"
+        data-href="https://wagtail.io/"
+        class="markup--anchor markup--p-anchor"
+        rel="noopener"
+        target="_blank">
+        Wagtail
+      </a>
+      is a Content Management System CMS that is built on top of the
+      <a
+        href="https://www.djangoproject.com/"
+        data-href="https://www.djangoproject.com/"
+        class="markup--anchor markup--p-anchor"
+        rel="noopener"
+        target="_blank">
+        Django Web Framework
+      </a>
+      . What I love about Wagtail is that it embraces the Django ecosystem and
+      way of doing things. It also has a really nice admin interface that makes
+      it easy for users to interact with the content.
+    </p>
+    <p name="bef6" id="bef6" class="graf graf--p graf-after--p">
+      Wagtail has a built in interface and framework for uploading, storing and
+      serving images. This is aptly named Wagtail Images, you can review the
+      docs about
+      <a
+        href="http://docs.wagtail.io/en/v1.11.1/topics/images.html"
+        data-href="http://docs.wagtail.io/en/v1.11.1/topics/images.html"
+        class="markup--anchor markup--p-anchor"
+        rel="noopener"
+        target="_blank">
+        Using Images in Templates
+      </a>
+      or
+      <a
+        href="http://docs.wagtail.io/en/v1.11.1/advanced_topics/images/index.html"
+        data-href="http://docs.wagtail.io/en/v1.11.1/advanced_topics/images/index.html"
+        class="markup--anchor markup--p-anchor"
+        rel="noopener"
+        target="_blank">
+        Advanced Image Usage
+      </a>
+      for more information.
+    </p>
+    <p name="0cc3" id="0cc3" class="graf graf--p graf-after--p">
+      Wagtail comes with a great
+      <a
+        href="http://docs.wagtail.io/en/v1.11.1/reference/contrib/forms/index.html"
+        data-href="http://docs.wagtail.io/en/v1.11.1/reference/contrib/forms/index.html"
+        class="markup--anchor markup--p-anchor"
+        rel="noopener"
+        target="_blank">
+        Form Builder
+      </a>
+      module, it lets users build their own forms in the admin interface. These
+      forms can have a series of fields such as Text, Multi-line Text, Email,
+      URL, Checkbox, and others that build up a form page that can be viewed on
+      the front end of the website. Users can customise the default value,
+      whether the field is required and also some help text that relates to the
+      field.
+    </p>
+    <h3 name="37e8" id="37e8" class="graf graf--h3 graf-after--p">
+      Before We Start
+    </h3>
+    <p name="9e1a" id="9e1a" class="graf graf--p graf-after--h3">
+      Before we start changing (breaking) things, it is important that you have
+      the following items completed.
+    </p>
+    <ol class="postList">
+      <li name="f4ce" id="f4ce" class="graf graf--li graf-after--p">
+        Wagtail
+        <em class="markup--em markup--li-em">v1.12.x</em>
+        up and running as per the
+        <a
+          href="http://docs.wagtail.io/en/v1.12.1/"
+          data-href="http://docs.wagtail.io/en/v1.12.1/"
+          class="markup--anchor markup--li-anchor"
+          rel="noopener"
+          target="_blank">
+          main documentation
+        </a>
+        .
+      </li>
+      <li name="29c3" id="29c3" class="graf graf--li graf-after--li">
+        <a
+          href="http://docs.wagtail.io/en/v1.12.1/reference/contrib/forms/index.html"
+          data-href="http://docs.wagtail.io/en/v1.12.1/reference/contrib/forms/index.html"
+          class="markup--anchor markup--li-anchor"
+          rel="noopener"
+          target="_blank">
+          Wagtailforms module
+        </a>
+        is installed, running and you have forms working.
+      </li>
+    </ol>
+    <h3 name="190b" id="190b" class="graf graf--h3 graf-after--li">
+      Adding Image Upload Fields to Forms in Wagtail
+    </h3>
+    <h4 name="f21e" id="f21e" class="graf graf--h4 graf-after--h3">
+      Planning our Changes
+    </h4>
+    <p name="db3a" id="db3a" class="graf graf--p graf-after--h4">
+      We want to enable the following user interaction:
+    </p>
+    <ol class="postList">
+      <li name="4cfe" id="4cfe" class="graf graf--li graf-after--p">
+        The admin interface should provide the ability to edit an existing form
+        and create a new form as normal.
+      </li>
+      <li name="2cab" id="2cab" class="graf graf--li graf-after--li">
+        When editing a form page, there should be a new dropdown option on the
+        ‘Field Type’ field called ‘Upload Image’.
+      </li>
+      <li name="1fd4" id="1fd4" class="graf graf--li graf-after--li">
+        The form page view should have one file upload field for every ‘Upload
+        Image’ field that was defined in the admin.
+      </li>
+      <li name="99d8" id="99d8" class="graf graf--li graf-after--li">
+        The form page view should accept images with the same restrictions as
+        Wagtail Images (&lt; 10mb, only PNG/JPG/GIF*).
+      </li>
+      <li name="5b85" id="5b85" class="graf graf--li graf-after--li">
+        The form page view should require the image if the field is defined as
+        ‘required’ in admin.
+      </li>
+      <li name="9f8e" id="9f8e" class="graf graf--li graf-after--li">
+        When an image is valid, it should save this image into the Wagtail
+        Images area.
+      </li>
+      <li name="91cb" id="91cb" class="graf graf--li graf-after--li">
+        A link to the the image should be saved to the form submission (aka form
+        response), this will ensure it appears on emails or reports.
+      </li>
+    </ol>
+    <p name="1b68" id="1b68" class="graf graf--p graf-after--li">
+      * Default GIF support is quite basic in Wagtail, if you want to support
+      animated GIFs you should read these docs regarding
+      <a
+        href="http://docs.wagtail.io/en/v1.11.1/advanced_topics/images/animated_gifs.html"
+        data-href="http://docs.wagtail.io/en/v1.11.1/advanced_topics/images/animated_gifs.html"
+        class="markup--anchor markup--p-anchor"
+        rel="noopener"
+        target="_blank">
+        Animated GIFs
+      </a>
+      .
+    </p>
+    <h4 name="262b" id="262b" class="graf graf--h4 graf-after--p">
+      1. Extend the AbstractFormField Class
+    </h4>
+    <p name="b427" id="b427" class="graf graf--p graf-after--h4">
+      In your models file that contains your FormPage class definition, you
+      should also have a definition for a FormField class. In the original
+      definition, the
+      <a
+        href="https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailforms/models.py#L78"
+        data-href="https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailforms/models.py#L78"
+        class="markup--anchor markup--p-anchor"
+        rel="noopener"
+        target="_blank">
+        AbstractFormField class
+      </a>
+      uses a fixed tuple of
+      <a
+        href="https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailforms/models.py#L23"
+        data-href="https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailforms/models.py#L23"
+        class="markup--anchor markup--p-anchor"
+        rel="noopener"
+        target="_blank">
+        FORM_FIELD_CHOICES
+      </a>
+      . We need to override the
+      <code class="markup--code markup--p-code">field_type</code>
+      with an appended set of choices.
+    </p>
+    <figure
+      name="ab0a"
+      id="ab0a"
+      class="graf graf--figure graf--iframe graf-after--p">
+      <script src="https://gist.github.com/lb-/d51a9e5f46b0281a514e1c6c1196c8cf.js"></script>
+    </figure>
+    <p name="e80a" id="e80a" class="graf graf--p graf-after--figure">
+      In the above code you can see that we imported the original
+      <code class="markup--code markup--p-code">FORM_FIELD_CHOICES</code>
+      from wagtail.wagtailforms.models. We then converted it to a list, added
+      our new field type and then this is used in the choices argument of the
+      field_type field.
+    </p>
+    <p name="d56b" id="d56b" class="graf graf--p graf-after--p">
+      When you do this, you will need to make a migration, and run that
+      migration. Test it out, the form in admin will now let you select this
+      type, but it will not do much else yet.
+    </p>
+    <h4 name="501d" id="501d" class="graf graf--h4 graf-after--p">
+      2. Extend the FormBuilder Class
+    </h4>
+    <p name="7db4" id="7db4" class="graf graf--p graf-after--h4">
+      In your models file you will now need to create an extended form builder
+      class. In the original definition the
+      <a
+        href="https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailforms/forms.py#L21"
+        data-href="https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailforms/forms.py#L21"
+        class="markup--anchor markup--p-anchor"
+        rel="noopener"
+        target="_blank">
+        FormBuilder class
+      </a>
+      builds a form based on the
+      <code class="markup--code markup--p-code">field_type</code>
+      list that is stored in each FormPage instance. This building process
+      generates a set of Django field classes. This is done by taking each field
+      type and using a dictionary to find a dedicated function that returns a
+      Django field, these functions are stored in a dictionary called
+      <code class="markup--code markup--p-code">FIELD_TYPES</code>
+      .
+    </p>
+    <figure
+      name="4423"
+      id="4423"
+      class="graf graf--figure graf--iframe graf-after--p">
+      <script src="https://gist.github.com/lb-/a3c6b8c0c3f2f0fd2574ed8cc29afd94.js"></script>
+    </figure>
+    <p name="aea2" id="aea2" class="graf graf--p graf-after--figure">
+      In the above code, we have imported FormBuilder and WagtailImageField,
+      then created our own extended FormBuilder with a new class. The first
+      thing we do is define a function that returns a created WagtailImageField.
+      Then we update the dictionary of FIELD_TYPES with our new function, mapped
+      to the ‘image’ field type. Remember above we added the choice
+      <code class="markup--code markup--p-code">(‘image’, ‘Upload Image’)</code>
+      where the key is
+      <code class="markup--code markup--p-code">image</code>
+      .
+    </p>
+    <h4 name="486a" id="486a" class="graf graf--h4 graf-after--p">
+      3. Set our FormPage class to use ExtendedFormBuilder
+    </h4>
+    <p name="a9fa" id="a9fa" class="graf graf--p graf-after--h4">
+      This step is pretty easy, we want to override the
+      <code class="markup--code markup--p-code">form_builder</code>
+      definition in our FormPage model. This is a very nifty way that Wagtail
+      enables you to override the form_builder you use.
+    </p>
+    <figure
+      name="224e"
+      id="224e"
+      class="graf graf--figure graf--iframe graf-after--p">
+      <script src="https://gist.github.com/lb-/63646015d9c28797cff15c72fe381e14.js"></script>
+    </figure>
+    <h4 name="b5af" id="b5af" class="graf graf--h4 graf-after--figure">
+      4. FormPage serve method to accept uploaded files
+    </h4>
+    <p name="10c2" id="10c2" class="graf graf--p graf-after--h4">
+      Uploaded files in Django are located in the request.FILES object, not in
+      the request.POST object. In the original definition of the
+      <a
+        href="https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailforms/models.py#L238"
+        data-href="https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailforms/models.py#L238"
+        class="markup--anchor markup--p-anchor"
+        rel="noopener"
+        target="_blank">
+        serve method inside AbstractForm
+      </a>
+      the request.FILES object is not give to the get_form method. This means we
+      will have to override the whole serve method. This step is also small but
+      requires copying and pasting a lot of code from the
+      <code class="markup--code markup--p-code">serve</code>
+      method on FormPage just to change one small part.
+    </p>
+    <figure
+      name="2a3c"
+      id="2a3c"
+      class="graf graf--figure graf--iframe graf-after--p">
+      <script src="https://gist.github.com/lb-/aa843795ad94c0cc92c2e879e8e9284f.js"></script>
+    </figure>
+    <p name="9de7" id="9de7" class="graf graf--p graf-after--figure">
+      The only difference between this
+      <code class="markup--code markup--p-code">serve</code>
+      method and the one we are extending is in the line
+      <code class="markup--code markup--p-code">form = self.getform(…</code>
+       . We are adding
+      <code class="markup--code markup--p-code">request.FILES</code>
+      to the arguments between
+      <code class="markup--code markup--p-code">request.POST</code>
+      and
+      <code class="markup--code markup--p-code">page=self</code>
+       .
+    </p>
+    <p name="bd60" id="bd60" class="graf graf--p graf-after--p">
+      The detailed reason for this is that Django handles files sent with the
+      request differently, see the
+      <a
+        href="https://docs.djangoproject.com/en/1.11/topics/http/file-uploads/"
+        data-href="https://docs.djangoproject.com/en/1.11/topics/http/file-uploads/"
+        class="markup--anchor markup--p-anchor"
+        rel="noopener"
+        target="_blank">
+        Django documentation about file uploads
+      </a>
+      for more information. We need to ensure that our form instance gets any
+      request.FILES along with the data stored in request.POST.
+    </p>
+    <p name="7a83" id="7a83" class="graf graf--p graf-after--p">
+      <strong class="markup--strong markup--p-strong">Important:</strong>
+      In future versions of Wagtail you should not have to do this, I put
+      through a pull request that has been approved which stops the need for
+      this whole step.
+    </p>
+    <h4 name="2fed" id="2fed" class="graf graf--h4 graf-after--p">
+      5. Ensure our form view can accept File Data
+    </h4>
+    <p name="a55d" id="a55d" class="graf graf--p graf-after--h4">
+      The form page view should have a &lt;form&gt; tag in it, the the
+      implementation suggested by Wagtail does not allow files data to be
+      submitted in the form.
+    </p>
+    <figure
+      name="4749"
+      id="4749"
+      class="graf graf--figure graf--iframe graf-after--p">
+      <script src="https://gist.github.com/lb-/36c0c0ae4df073a3bdc18444731d09ef.js"></script>
+    </figure>
+    <p name="a3e4" id="a3e4" class="graf graf--p graf-after--figure">
+      The only difference to the basic form is that we have added
+      <code class="markup--code markup--p-code">
+        enctype=”multipart/form-data”
+      </code>
+      to our form attributes. If you do not do this you will never get any files
+      sent through the request and no errors to advise you why. For more
+      information about why we need to do this, you can view the
+      <a
+        href="https://docs.djangoproject.com/en/1.11/topics/http/file-uploads/#basic-file-uploads"
+        data-href="https://docs.djangoproject.com/en/1.11/topics/http/file-uploads/#basic-file-uploads"
+        class="markup--anchor markup--p-anchor"
+        rel="noopener"
+        target="_blank">
+        Django Docs File Uploads
+      </a>
+      page.
+    </p>
+    <h4 name="a5ca" id="a5ca" class="graf graf--h4 graf-after--p">
+      6. Process the Image (file) Data after Validation
+    </h4>
+    <p name="e82c" id="e82c" class="graf graf--p graf-after--h4">
+      We will now override the
+      <code class="markup--code markup--p-code">process_form_submission</code>
+      on our FormPage class. The original definition of the
+      <a
+        href="https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailforms/models.py#L224"
+        data-href="https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailforms/models.py#L224"
+        class="markup--anchor markup--p-anchor"
+        rel="noopener"
+        target="_blank">
+        process_form_submission method
+      </a>
+      has no notion of processing anything other than the request.POST data. It
+      will simply convert the cleaned data to JSON for storing on the form
+      submission instance. We will iterate through each field and find any
+      instances of
+      <code class="markup--code markup--p-code">WagtailImageField</code>
+      then get the data, create a new Wagtail Image with that file data, finally
+      we will store a link to the image in the response.
+    </p>
+    <figure
+      name="3955"
+      id="3955"
+      class="graf graf--figure graf--iframe graf-after--p">
+      <script src="https://gist.github.com/lb-/a040b1e680af42b054a0544177baf99c.js"></script>
+    </figure>
+    <p name="8e99" id="8e99" class="graf graf--p graf-after--figure">
+      A few items of note here:
+    </p>
+    <ul class="postList">
+      <li name="a607" id="a607" class="graf graf--li graf-after--p">
+        <code class="markup--code markup--li-code">cleaned_data</code>
+        contains the File Data (for any files), the Django form module does this
+        for us. File Data cannot be parsed by the JSON parser, hence us having
+        to process into a URL for these cases.
+      </li>
+      <li name="64f6" id="64f6" class="graf graf--li graf-after--li">
+        <code class="markup--code markup--li-code">filename_to_title</code>
+        can look like whatever you want, I stripped out dashes and made the file
+        title case. You do not have to do this but you do have to ensure there
+        is some title when inserting a WagtailImage.
+      </li>
+    </ul>
+    <pre
+      name="816b"
+      id="816b"
+      class="graf graf--pre graf-after--li">def filename_to_title(filename):<br>    from os.path import splitext<br>    if filename:<br>        result = splitext(filename)[0]<br>        result = result.replace(&#39;-&#39;, &#39; &#39;).replace(&#39;_&#39;, &#39; &#39;)<br>        return result.title()</pre>
+    <ul class="postList">
+      <li name="8c83" id="8c83" class="graf graf--li graf-after--pre">
+        <code class="markup--code markup--li-code">image.get_rendition</code>
+        is a very useful function detailed in the
+        <a
+          href="http://docs.wagtail.io/en/v1.12.1/advanced_topics/images/renditions.html"
+          data-href="http://docs.wagtail.io/en/v1.12.1/advanced_topics/images/renditions.html"
+          class="markup--anchor markup--li-anchor"
+          rel="noopener"
+          target="_blank">
+          Wagtail Documentation
+        </a>
+        , it mimics the template helper but can be used in Python. By default
+        the URL will be relative (it will not contain the http/https, or the
+        domain), this will mean links sent to email will not work. It is up to
+        you to work out how to best solve this if it is an issue.
+      </li>
+      <li name="d146" id="d146" class="graf graf--li graf-after--li">
+        You must use
+        <code class="markup--code markup--li-code">cleaned_data.update</code>
+        to save a json seralizable reference to your image, hence the file data
+        will not work. You could save the image ID or any other type of string,
+        an Image URL is just what works for this use case.
+      </li>
+      <li name="a031" id="a031" class="graf graf--li graf-after--li">
+        The images will be added to the default collection, which should be the
+        <code class="markup--code markup--li-code">root</code>
+        collection, you can also customise this if you want.
+      </li>
+      <li name="2b93" id="2b93" class="graf graf--li graf-after--li">
+        Images require
+        <code class="markup--code markup--li-code">uploaded_by_user</code>
+        to be defined, if the form is public (ie. on a website that does not
+        require being signed in) you will need to work around this. Maybe by
+        just saying it was uploaded by the user that created the form page or
+        the first user.
+      </li>
+      <li name="d833" id="d833" class="graf graf--li graf-after--li">
+        Using
+        <code class="markup--code markup--li-code">get_image_model</code>
+        is the best practice way to get the Image Model that Wagtail is using.
+      </li>
+    </ul>
+    <h3 name="a3cf" id="a3cf" class="graf graf--h3 graf-after--li">
+      Finishing Up
+    </h3>
+    <p name="c61b" id="c61b" class="graf graf--p graf-after--h3">
+      Your Form models.py file will now look something like the following:
+    </p>
+    <figure
+      name="7086"
+      id="7086"
+      class="graf graf--figure graf--iframe graf-after--p">
+      <script src="https://gist.github.com/lb-/a368c55eefc17afc24e38f9db2d7d9e3.js"></script>
+    </figure>
+    <p name="5c99" id="5c99" class="graf graf--p graf-after--figure">
+      Forms can now have one or more Image Upload fields that are defined by the
+      CMS editors. These images will be available in Admin in the Images section
+      and can be used throughout the rest of Wagtail. You also get all the
+      benefits that come with Wagtail Images like search indexing, usage in
+      templates and URLS for images of various compressed sizes.
+    </p>
+    <figure name="7b6e" id="7b6e" class="graf graf--figure graf-after--p">
+      <img
+        class="graf-image"
+        data-image-id="1*4DY2aZtTkjQqSty5xWU8ZQ.png"
+        data-width="1440"
+        data-height="651"
+        src="/img/posts/medium/1-4DY2aZtTkjQqSty5xWU8ZQ.png" />
+      <figcaption class="imageCaption">
+        The Admin view of form responses will now show whatever you store from
+        the clean_data.
+      </figcaption>
+    </figure>
+    <p name="5cbd" id="5cbd" class="graf graf--p graf-after--figure">
+      Let me know if you run into issues or find some typos/bugs in this
+      article. Thank you to the amazing team at Torchbox and all the developers
+      of Wagtail for making this amazing tool. Show your support of Wagtail by
+      starring the
+      <a
+        href="https://github.com/wagtail/wagtail/"
+        data-href="https://github.com/wagtail/wagtail/"
+        class="markup--anchor markup--p-anchor"
+        rel="noopener"
+        target="_blank">
+        Wagtail repo on Github
+      </a>
+      .
+    </p>
+    <p name="635c" id="635c" class="graf graf--p graf-after--p graf--trailing">
+      Thanks to my friend Adam for helping me proof this.
+    </p>
+  </div>
+  <aside>
+    <p>
+      Previously hosted on
+      <a
+        href="https://medium.com/@_lb_/image-uploads-in-wagtail-forms-3121c9b35d27">
+        Medium
+      </a>
+      exported on September 9, 2023.
+    </p>
+  </aside>
+</article>
