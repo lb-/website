@@ -144,4 +144,4 @@ Preferred tools &amp; technologies where I have the most experience.
 
 ## Posts
 
-I have a few developer focused tutorials on [dev.to](https://dev.to/lb).
+See some of my [posts](/posts), I also have a few technical and other posts developer focused tutorials on [dev.to](https://dev.to/lb).

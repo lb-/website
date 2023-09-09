@@ -2,8 +2,16 @@
 layout: layouts/base.njk
 ---
 
-<h2>{{ title or metadata.title }}</h2>
-<p>{{ description }}</p>
-<div>
-	{{ content | safe }}
-</div>
+<h2 id="post-title">{{ title or metadata.title }}</h2>
+
+{{ content | safe }}
+
+<ul class="post-metadata">
+  <li>
+    Originally posted on
+    <time datetime="{{ page.date | htmlDateString }}">
+      {{ page.date | readableDate }}
+    </time>
+  </li>
+  <li>Created by LB (Ben Johnston)</li>
+</ul>

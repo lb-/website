@@ -5,22 +5,6 @@ eleventyNavigation:
   order: 2
 ---
 
-<h1>Archive</h1>
+<h1>Blog posts</h1>
 
-{% set postslist = collections.post %}
-
-<ol reversed class="postlist">
-	{% for post in postslist | reverse %}
-	<li
-		class="postlist-item{% if post.url == url %} postlist-item-active{% endif %}">
-		<a href="{{ post.url }}" class="postlist-link">
-			{% if post.data.title %}{{ post.data.title }}{% else %}
-			<code>{{ post.url }}</code>
-			{% endif %}
-		</a>
-		<time class="postlist-date" datetime="{{ post.date | htmlDateString }}">
-			{{ post.date | readableDate("LLLL yyyy") }}
-		</time>
-	</li>
-	{% endfor %}
-</ol>
+{% set postslist = collections.post %} {% include "postslist.njk" %}

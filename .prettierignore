@@ -1,0 +1,9 @@
+**/.git
+**/.hg
+**/.svn
+node_modules
+
+_site
+package-lock.json
+content/feed/feed.njk
+content/feed/json.njk
