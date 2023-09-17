@@ -7,3 +7,4 @@ _site
 package-lock.json
 content/feed/feed.njk
 content/feed/json.njk
+content/sitemap/sitemap.xml.njk
