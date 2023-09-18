@@ -31,6 +31,11 @@ module.exports = function (eleventyConfig) {
   // Official plugins
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(pluginSyntaxHighlight, {
+    init: function ({ Prism }) {
+      // EXPLAIN THIS
+      require("./prism-custom-class.js");
+      Prism.plugins.customClass.prefix("prism--");
+    },
     preAttributes: { tabindex: 0 },
   });
   eleventyConfig.addPlugin(pluginNavigation);
