@@ -42,7 +42,7 @@
     <meta name="theme-color" content="#f36f54" />
     <!-- prettier-ignore -->
     {%- css %}{%include "node_modules/bulma/css/bulma.css" %}{% endcss %}
-    <!-- prettier-ignore -->
+    {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %}
     {%- css %}{%include "public/css/index.css" %}{% endcss %}
     <link rel="stylesheet" href="{% getBundleFileUrl 'css' %}" />
   </head>

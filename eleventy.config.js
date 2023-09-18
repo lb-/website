@@ -110,7 +110,8 @@ module.exports = function (eleventyConfig) {
     templateFormats: ["md", "njk", "html", "liquid"],
 
     // Pre-process *.md files with: (default: `liquid`)
-    markdownTemplateEngine: "njk",
+    // Use a template syntax that will not conflict with Django template syntax in examples
+    markdownTemplateEngine: "ejs",
 
     // Pre-process *.html files with: (default: `liquid`)
     htmlTemplateEngine: "njk",
